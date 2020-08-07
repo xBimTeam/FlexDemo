@@ -1,0 +1,36 @@
+nav {
+  height: 100%;
+  width: 250px;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      .mat-icon {
+        color: #fff;
+        padding-right: 8px;
+      }
+      a {
+        color: #fff;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    li > .active {
+      background-color: #ff506a;
+    }
+  }
+}
+.logo {
+  margin: 8px;
+  max-width: 180px;
+}

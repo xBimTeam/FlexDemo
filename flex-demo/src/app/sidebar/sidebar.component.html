@@ -1,0 +1,37 @@
+<nav>
+  <ul>
+    <li>
+      <img src="/assets/xBim_flex_logo.png" class="logo">
+
+    </li>
+    <li>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/landing']">
+        <mat-icon>home</mat-icon>
+        Home
+      </a>
+    </li>
+    <li>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="">
+        <mat-icon>login</mat-icon>
+        Sign In
+      </a>
+    </li>
+
+    <li>
+      <a routerLinkActive="active" [routerLink]="['tenants']">
+        <mat-icon>account_balance</mat-icon>
+        Tenants
+      </a>
+    </li>
+    <mat-divider></mat-divider>
+    <ng-container *ngIf="tenantLoaded">
+      <li *ngFor="let menu of menuItems">
+        <a routerLinkActive="active" [routerLink]="[(tenant.Identifier || tenant.TenantId), menu.routeLink]">
+          <mat-icon>{{menu.icon}}</mat-icon>
+          {{menu.name}}
+        </a>
+      </li>
+    </ng-container>
+
+  </ul>
+</nav>

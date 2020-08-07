@@ -1,0 +1,25 @@
+<div class="bell">
+  <button type="button" mat-icon-button aria-label="Notifications" (click)="connect()" [class.disconnected]= "(isDisconnected$ | async)">
+    
+    <mat-icon *ngIf="(allCount$ | async) === 0 ; else hasitems">notifications_none</mat-icon>
+    <ng-template  #hasitems>
+
+      <mat-icon [matBadge]="allCount$ | async" matBadgePosition="above after">notifications</mat-icon>
+
+    </ng-template>
+  </button>
+
+
+  <button type="button" mat-icon-button aria-label="Asset Allerts" [class.disconnected]= "(isDisconnected$ | async)">
+
+      <mat-icon [matBadge]="assetCount$ | async" matBadgePosition="above after">home</mat-icon>
+  </button>
+
+  
+  <button type="button" mat-icon-button aria-label="Messages" [class.disconnected]= "(isDisconnected$ | async)">
+
+      <mat-icon [matBadge]="globalCount$ | async" matBadgePosition="above after">chat</mat-icon>
+  </button>
+
+
+</div>

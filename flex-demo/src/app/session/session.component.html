@@ -1,0 +1,46 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<h1>Authentication</h1>
+
+<button mat-raised-button *ngIf="isLoggedIn; else loginButton" (click)="toggleLogin(isLoggedIn)">
+  Logout
+</button>
+
+<ng-template #loginButton let-isLoggedIn>
+  <button mat-raised-button color="primary" (click)="toggleLogin(isLoggedIn)">
+    Login
+  </button>
+</ng-template>
+
+<table style="width:50%" *ngIf="isLoggedIn">
+  <tr>
+    <h2>User Details</h2>
+  </tr>
+  <tr>
+    <td>Logged in:</td>
+    <td><b>{{user.username}} ({{initials$ | async}})</b></td>
+  </tr>
+  <tr>
+    <td>Email:</td>
+    <td><b>{{user.email}}</b></td>
+  </tr>
+
+  <tr>
+    <td>Last update:</td>
+    <td><b>{{getDate(user.entityLastUpdated)}}</b></td>
+  </tr>
+  <tr>
+  <tr>
+    <td>Access Token Expires:</td>
+    <td><b>{{getDate(user.tokenExpiresAt)}}</b></td>
+  </tr>
+  <tr>
+    <!-- <tr>
+    <td>Picture:</td>
+    <td><img class="circle responsive-img" src="{{user.picture}}" /></td>
+  </tr> -->
+</table>
+<app-tenant-index *ngIf="isLoggedIn"></app-tenant-index>
+
+<div>
+  {{error}}
+</div>

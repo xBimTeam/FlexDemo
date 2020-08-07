@@ -1,0 +1,69 @@
+<div class="viewer">
+  <h1>3D Viewer</h1>
+  <div class="header">
+    <h3>Choose a building to view</h3>
+    <div>
+      <button mat-raised-button [color]="(activeAsset$ | async)?.AssetId == asset.AssetId ? 'accent' : ''"
+        *ngFor="let asset of assets$ | async" (click)="setActive(asset)">{{asset.Name}}
+      </button>
+      <span *ngIf="(assetCount$ | async) === 0">No buildings...</span>
+    </div>
+    <div class="context" *ngIf="(activeAsset$ | async) != null">
+      <div>
+        <button mat-raised-button (click)="unloadCurrentView()">Unload {{currentViewId}}</button>
+      </div>
+
+      <div class="selection">
+        <div>
+          <strong>Picked:</strong>
+          <span *ngFor="let pick of picked$ | async">
+            [Asset: {{pick.assetModel.assetId}} Model: {{pick.assetModel.assetModelId}} Entity: {{pick.entityId}}]
+            (x={{pick.xyz[0] | number}}, y={{pick.xyz[1] | number}}, z={{pick.xyz[2] | number}} )
+          </span>
+        </div>
+        <div>
+          <strong>Selected:</strong>
+          <div *ngFor="let selected of selected$ | async">
+            [Asset: {{selected.assetModel.assetId}} Model: {{selected.assetModel.assetModelId}} Entity:
+            {{selected.entityId}}]
+            <button mat-raised-button (click)="deselect(selected)">Unselect</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="actions">
+      <button mat-raised-button (click)="isolate()">Isolate selected entities</button>
+      <button mat-raised-button (click)="makeRed()">Make selected entities red</button>
+
+    </div>
+  </div>
+  <div class="view">
+
+
+    <div id="viewer_canvas"></div>
+    <div id="detail-view" [class.hidden]="!showDetails"></div>
+    <div id="fps">FPS {{fps$ | async}}</div>
+    <div id="props" *ngIf="properties?.entityId" [style.left.px]="properties.x+12" [style.top.px]="properties.y+24">
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>ID</td>
+          <td>{{properties.entityId}}</td>
+        </tr>
+        <tr>
+          <td>Model</td>
+          <td>{{properties.assetModel.assetModelId}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <mat-progress-bar *ngIf="(modelLoading$ | async).loading" color="primary" mode="determinate"
+      [value]="(modelLoading$ | async).percent"></mat-progress-bar>
+
+  </div>
+</div>

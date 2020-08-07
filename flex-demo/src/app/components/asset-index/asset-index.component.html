@@ -1,0 +1,55 @@
+<div>
+  <h1>
+    Assets
+  </h1>
+
+  <div>
+
+    <div>
+
+      <div>
+        <flex-table [stateType]="stateType" [displayedColumns]="orderedColumns" [columnDefinitions]="definedColumns"
+          [comparer]="comparer" allowMultipleSelection="true" (rowSelected)="activateAsset($event)"
+          (rowDeselected)="deactivateAsset($event)" (rowDblClick)="openAsset($event)">
+        </flex-table>
+      </div>
+
+
+    </div>
+
+    <h2>Asset Filter</h2>
+    <div *ngIf="assetFilterCount$ | async as assetFilterCount; else noAssetFilterRow">
+      <table style="width:75%">
+        <tr *ngFor="let assetFilter of assetFilters$ | async">
+
+          <table>
+            <tr>
+              <td><b>{{assetFilter.asset.Name}}</b></td>
+              <td align="right"><button class="btn btn-default"
+                  (click)="deactivateAsset(assetFilter.asset)">Remove</button>
+              </td>
+            </tr>
+            <tr *ngFor="let assetModelFilter of assetFilter.modelFilters">
+              <td>
+                <input type="checkbox" [checked]="assetModelFilter.isActive"
+                  (change)="toggleModelFilter(assetModelFilter)" />
+              </td>
+              <td>{{assetModelFilter.assetModel.Name}}</td>
+            </tr>
+            <tr></tr>
+          </table>
+        </tr>
+      </table>
+      <b>Asset Filter Query String</b>
+      <p>{{oDataFilter$ | async}}</p>
+    </div>
+    <ng-template #noAssetFilterRow let-assetFilterCount>
+      <b>No Asset Filter in place</b>
+      <p>You will be searching across every asset in your tenancy</p>
+      <p>To restrict asset searches to specific assets add assets to the filter from the list above</p>
+    </ng-template>
+  </div>
+
+
+
+</div>

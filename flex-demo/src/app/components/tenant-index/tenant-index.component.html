@@ -1,0 +1,6 @@
+<div>
+  <h1>Your Tenants</h1>
+  <flex-table [stateType]="stateType" [displayedColumns]="orderedColumns" [columnDefinitions]="definedColumns"
+    [comparer]="comparer" (rowSelected)="activateTenant($event)" (rowDeselected)="clearTenant($event)">
+  </flex-table>
+</div>

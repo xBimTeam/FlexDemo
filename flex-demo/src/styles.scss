@@ -1,0 +1,91 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$flexkit-demo-primary: mat-palette($mat-indigo);
+$flexkit-demo-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$flexkit-demo-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$flexkit-demo-theme: mat-light-theme(
+  $flexkit-demo-primary,
+  $flexkit-demo-accent,
+  $flexkit-demo-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($flexkit-demo-theme);
+
+//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  background: #f2f2f2;
+  font-family: 'Roboto', sans-serif;
+  height: 100vh;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+#container {
+  display: grid;
+  grid-template-columns: 250px auto;
+  height: 100%;
+  a {
+    text-decoration: none;
+  }
+  #header {
+    background: white;
+    height: 64px;
+  }
+  #content {
+    padding: 40px 40px 40px 40px;
+  }
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: white;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #c0c0c0;
+  border: 1px solid #a0a0a0;
+  &:hover {
+    background-color: #707070;
+    border: 1px solid #a0a0a0;
+  }
+  &:active {
+    background-color: #505050;
+    border: 1px solid #a0a0a0;
+  }
+}

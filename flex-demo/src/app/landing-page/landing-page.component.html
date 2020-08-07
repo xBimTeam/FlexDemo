@@ -1,0 +1,20 @@
+<a routerLinkActive="active" [routerLink]="['/tenants']">
+  Tenants
+</a>
+<div>
+  BaselUrl: {{config.baseUrl}}
+</div>
+<div>
+  ClientId: {{config.clientId}}
+</div>
+<div>
+  App Name: {{env.appName}}
+</div>
+<div>
+  Logged In: {{loggedIn$ | async}}
+</div>
+<div *ngIf="loggedIn">
+
+  User: {{user.username}}
+
+</div>

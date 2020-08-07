@@ -1,0 +1,30 @@
+.profile {
+  float: right;
+  margin: 8px;
+}
+.side {
+  background: #0e1c43;
+  height: 100%;
+  overflow-y: auto;
+}
+
+#header {
+  padding-left: 16px;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+#content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
