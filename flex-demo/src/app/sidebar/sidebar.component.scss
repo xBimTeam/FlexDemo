@@ -7,6 +7,10 @@ nav {
     padding: 0;
     margin: 0;
 
+    ul {
+      padding-left: 16px;
+    }
+
     li {
       display: flex;
       align-items: center;
@@ -16,7 +20,7 @@ nav {
       }
       a {
         color: #fff;
-        padding: 16px;
+        padding: 12px;
         display: flex;
         align-items: center;
         flex-grow: 1;
@@ -26,7 +30,7 @@ nav {
       }
     }
     li > .active {
-      background-color: #ff506a;
+      background-color: #8257fa;
     }
   }
 }

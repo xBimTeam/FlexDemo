@@ -1,19 +1,19 @@
 <nav>
   <ul>
     <li>
-      <img src="/assets/xBim_flex_logo.png" class="logo">
+      <img src="/assets/xBim_flex_partner_logo_dark.png" class="logo">
 
     </li>
     <li>
-      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/landing']">
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/']">
         <mat-icon>home</mat-icon>
         Home
       </a>
     </li>
     <li>
-      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="">
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/auth">
         <mat-icon>login</mat-icon>
-        Sign In
+        Authentication
       </a>
     </li>
 
@@ -23,15 +23,19 @@
         Tenants
       </a>
     </li>
+
+
     <mat-divider></mat-divider>
-    <ng-container *ngIf="tenantLoaded">
-      <li *ngFor="let menu of menuItems">
-        <a routerLinkActive="active" [routerLink]="[(tenant.Identifier || tenant.TenantId), menu.routeLink]">
-          <mat-icon>{{menu.icon}}</mat-icon>
-          {{menu.name}}
-        </a>
-      </li>
-    </ng-container>
+    <ul>
+      <ng-container *ngIf="tenantLoaded">
+        <li *ngFor="let menu of menuItems">
+          <a routerLinkActive="active" [routerLink]="[(tenant.Identifier || tenant.TenantId), menu.routeLink]">
+            <mat-icon>{{menu.icon}}</mat-icon>
+            {{menu.name}}
+          </a>
+        </li>
+      </ng-container>
+    </ul>
 
   </ul>
 </nav>

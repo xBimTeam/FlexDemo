@@ -1,12 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { GoToPage, SetPageSize, ClearActive } from '@ngxs-labs/entity-state';
 import { Select, Store, Actions, ofActionSuccessful } from '@ngxs/store';
-import { AddEntityState, AssetEntityState, CanvasService, Expand, LoadModelsIntoView, ModelRef, ModelType, RemoveEntityState, SetCurrentView, SetDetailImage, SetExpands, SetIsolatedEntities, SetOrderBys, SetRepresentationColour, SetViewerProperties, SortOrder, TenantEntityState, UnloadView, ViewerEntityState, ViewerStateSelectors, ViewerStyle, SetDefaultViewPoint, ViewStateModel, SetActive, ModelDefinition } from '@xbim/flex-webkit';
+import {
+  AddEntityState, AssetEntityState, CanvasService, Expand, LoadModelsIntoView, ModelRef,
+  ModelType, RemoveEntityState, SetCurrentView, SetDetailImage, SetExpands, SetIsolatedEntities, SetOrderBys,
+  SetRepresentationColour, SetViewerProperties, SortOrder, TenantEntityState, UnloadView, ViewerEntityState,
+  ViewerStateSelectors, ViewerStyle, SetDefaultViewPoint, ViewStateModel, SetActive, ModelDefinition, ClearViews,
+  SetFilter
+} from '@xbim/flex-webkit';
 import { Asset, Tenant, Model } from '@xbim/flex-api';
 import { NGXLogger } from 'ngx-logger';
 import { Observable, Subject } from 'rxjs';
-import { skipWhile, take, takeUntil } from 'rxjs/operators';
+import { skipWhile, take, takeUntil, tap, distinctUntilKeyChanged, distinctUntilChanged } from 'rxjs/operators';
 import { ViewType } from '@xbim/viewer';
 
 @Component({
@@ -35,7 +41,12 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  DefaultTypes: ModelType[] = [ModelType.ENVELOPE, ModelType.WINDOWS_DOORS, ModelType.SITE, ModelType.COMPONENT, /*ModelType.SPATIAL_STRUCTURE */];
+  DefaultTypes: ModelType[] = [
+    ModelType.ENVELOPE,
+    ModelType.WINDOWS_DOORS,
+    ModelType.SITE,
+    ModelType.COMPONENT,
+    /*ModelType.SPATIAL_STRUCTURE */];
 
   public properties: { assetModel: ModelRef, entityId: number, x: number, y: number } = { assetModel: null, entityId: null, x: 0, y: 0 };
   public showDetails = false;
@@ -54,6 +65,9 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
     this.destroy$.next();
     this.destroy$.complete();
+
+    // Clear any loaded views in the viewer
+    this.store.dispatch(new ClearViews());
   }
 
   ngOnInit() {
@@ -65,7 +79,9 @@ export class ViewerComponent implements OnInit, OnDestroy {
           this.store.dispatch([
             new SetPageSize(AssetEntityState, 50),
             new SetExpands(AssetEntityState, new Expand('Models')),
-            new SetOrderBys(AssetEntityState, new SortOrder<Asset>('DateCreated', 'desc'))]
+            new SetOrderBys(AssetEntityState, new SortOrder<Asset>('DateCreated', 'desc')),
+            new SetFilter(AssetEntityState, 'Models/any(m:m/ProcessingStatus eq \'Completed\')')
+          ]
           )
             .subscribe(() => this.store.dispatch(new GoToPage(AssetEntityState, { first: true })));
         }
@@ -73,8 +89,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
     this.route.queryParams
       .pipe(takeUntil(this.destroy$))
-      .subscribe(p => {
-        const assetIdStr = p['assetId'];
+      .subscribe((p: Params) => {
+        const assetIdStr = p.assetId;
         if (assetIdStr == null) {
           return;
         }
@@ -155,14 +171,17 @@ export class ViewerComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         ofActionSuccessful(LoadModelsIntoView),
-        take(1),
+        tap(m => this.logger.debug('Setting default view', m))
       )
       .subscribe((action: LoadModelsIntoView) => {
         this.store.dispatch(new SetDefaultViewPoint(this.currentViewId, ViewType.DEFAULT));
       });
 
     this.activeAsset$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged((a, b) => a && b && a.AssetId === b.AssetId)
+      )
       .subscribe(asset => {
         if (asset) {
           this.load3DModel(asset);
@@ -192,7 +211,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
     let result = [];
     types.forEach(type => {
-      result = result.concat(enabledModels.map(m => ({ model: m, type: type, queryParams: params })));
+      result = result.concat(enabledModels.map(m => ({ model: m, type, queryParams: params })));
     });
     return result;
   }

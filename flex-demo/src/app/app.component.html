@@ -1,6 +1,5 @@
 <div id="container">
   <div class="side">
-
     <app-sidebar></app-sidebar>
   </div>
 
@@ -8,7 +7,8 @@
   <div id="main">
     <div id="header" *ngIf="loggedIn$ | async">
       <div id="tenant">
-        <h1>{{(activeTenant$|async)?.Name}} {{(activeAsset$ | async)? ' - ': ''}} {{(activeAsset$ | async)?.Name}}</h1>
+        <h1>{{(activeTenant$|async)?.Name || 'Flex Demo'}} {{(activeAsset$ | async)? ' - ': ''}}
+          {{(activeAsset$ | async)?.Name}}</h1>
       </div>
       <div class="profile">
         <button mat-mini-fab class="avatar">{{initials$ | async}}</button>

@@ -26,11 +26,12 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/silent-refesh.html",
+              "src/silent-refresh.html",
               "src/config.json"
             ],
             "styles": ["src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -44,9 +45,9 @@
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
                 {

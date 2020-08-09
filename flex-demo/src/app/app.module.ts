@@ -1,4 +1,3 @@
-
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -37,9 +36,12 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
+    // Sets up lazy loaded application routing
     AppRoutingModule,
+    // Bootstraps the Flex system providing authentication, state management, and data-access for the Flex API
     FlexWebkitModule.forRoot(environment),
     HttpClientModule,
+    // We use the Tenant module in the main application. All other Flex modules are lazy loaded
     TenantIndexModule,
   ],
   providers: [],

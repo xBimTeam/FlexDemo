@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
-import { TeamEntityState } from '@xbim/features/team/shared';
 import { SharedModule } from '../../shared/shared.module';
 import { TeamComponent } from './team.component';
-
+import { TeamEntityState } from './team-state';
 
 
 const routes: Routes = [

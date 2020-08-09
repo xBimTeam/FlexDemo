@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { InvitationEntityState } from '@xbim/features/team/shared';
-import { EntityComparer, AddExpands, Expand } from '@xbim/flex-webkit';
+import { InvitationEntityState } from './invitations.state';
 import { GridColumnDefinition } from '@xbim/grid';
 import { NGXLogger } from 'ngx-logger';
 import { DateCreatedColumns } from '../../common-columns';
+import { EntityComparer, AddExpands, Expand } from '@xbim/flex-webkit';
 
 
 @Component({
@@ -46,7 +46,7 @@ export class InvitationsComponent implements OnInit {
   ngOnInit() {
 
     this.store.dispatch(new AddExpands(InvitationEntityState, [
-      new Expand('AcceptedBy', "$select=Name"),
+      new Expand('AcceptedBy', '$select=Name'),
     ]));
   }
 }

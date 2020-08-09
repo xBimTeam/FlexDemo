@@ -75,25 +75,25 @@ import { FlexGridModule } from '@xbim/grid';
     // MatFormFieldModule, MatRadioModule, MatSelectModule, MatSliderModule,
     // MatSlideToggleModule, MatSelectModule,
     // // Layout
-    // MatCardModule, 
+    MatCardModule,
     MatDividerModule,
     // MatExpansionModule, MatGridListModule,
     // MatListModule, MatStepperModule, MatTabsModule, MatTreeModule,
-    // // Buttons
-    // 
+    // Buttons
     MatButtonModule,
-    //MatButtonToggleModule,
+    // MatButtonToggleModule,
     MatBadgeModule, MatChipsModule,
-    // 
+    //
     MatIconModule,
-    //MatProgressSpinnerModule, 
+    MatProgressSpinnerModule,
     MatProgressBarModule, MatRippleModule,
 
-    // // Popups & Modals
-    // MatBottomSheetModule, MatDialogModule, MatSnackBarModule, MatTooltipModule,
+    // Popups & Modals
+    // MatBottomSheetModule, MatDialogModule, MatSnackBarModule, 
+    MatTooltipModule,
 
-    // // Datatable
-    // MatTableModule, MatSortModule, MatPaginatorModule,
+    // Datatable
+    MatTableModule, MatSortModule, MatPaginatorModule,
 
     FlexGridModule
 

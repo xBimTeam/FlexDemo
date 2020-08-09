@@ -25,14 +25,14 @@ export class SpaceIndexComponent implements OnInit {
     {
       id: 'Components',
       title: '# Components',
-      fieldType: "Badge",
+      fieldType: 'Badge',
       field: 'Components@odata.count',
       orderbyField: 'Components/$count',
-      badgeIcon: 'room'
+      badgeIcon: 'batch_prediction'
     }
   ];
 
-  orderedColumns = ['Name', 'Description', 'LevelName', 'ModelName', 'DateModified'];
+  orderedColumns = ['Name', 'Description', 'LevelName', 'ModelName', 'DateModified', 'Components'];
   public stateType = SpaceIndexState;
   public comparer = new EntityComparer();
 
@@ -40,7 +40,7 @@ export class SpaceIndexComponent implements OnInit {
   ngOnInit() {
 
     this.store.dispatch(new AddExpands(SpaceIndexState, [
-      new Expand('Components', "$count=true;$select=Name;$top=10"),
+      new Expand('Components', '$count=true;$select=Name;$top=10'),
     ]));
   }
 }

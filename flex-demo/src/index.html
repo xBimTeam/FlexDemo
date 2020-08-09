@@ -3,19 +3,75 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Flex Webkit library Demo App</title>
+  <title>xbim Flex Webkit Demo-app</title>
   <base href="/">
-
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Rajdhani300|Roboto:300,400,500&display=swap" rel="stylesheet">
+  <style>
+    .loader {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      background-color: #0E1C43;
+      flex-direction: column;
+      color: #f3f3f3;
+    }
+
+    .loader>h1 {
+      position: relative;
+      padding: 0;
+      margin: 0;
+      top: -150px;
+    }
+
+    .spinner {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 240px;
+      height: 240px;
+      -webkit-animation: spin 2s linear infinite;
+      /* Safari */
+      animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <app-root></app-root>
+  <app-root>
+    <div class="loader">
+      <div class="spinner">
+      </div>
+      <h1>Loading Flex...</h1>
+    </div>
+  </app-root>
 </body>
 
 </html>

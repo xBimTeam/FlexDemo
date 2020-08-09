@@ -8,12 +8,12 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 export const routes: Routes = [
   {
     path: '',
-    component: SessionComponent,
+    component: LandingPageComponent,
     pathMatch: 'full',
   },
   {
-    path: 'landing',
-    component: LandingPageComponent,
+    path: 'auth',
+    component: SessionComponent,
   },
   {
     path: 'tenants',
@@ -21,18 +21,18 @@ export const routes: Routes = [
     loadChildren: () => import('./components/tenant-index/tenant-index.module').then(m => m.TenantIndexModule),
     pathMatch: 'full'
   },
-  // {
-  //   path: ':tenantId/invitations',
-  //   canActivate: [AuthGuard, TenantGuard],
-  //   loadChildren: () => import('./components/invitations/invitations.module').then(m => m.InvitationsModule),
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: ':tenantId/team',
-  //   canActivate: [AuthGuard, TenantGuard],
-  //   loadChildren: () => import('./components/team/team.module').then(m => m.TeamModule),
-  //   pathMatch: 'full'
-  // },
+  {
+    path: ':tenantId/invitations',
+    canActivate: [AuthGuard, TenantGuard],
+    loadChildren: () => import('./components/invitations/invitations.module').then(m => m.InvitationsModule),
+    pathMatch: 'full'
+  },
+  {
+    path: ':tenantId/team',
+    canActivate: [AuthGuard, TenantGuard],
+    loadChildren: () => import('./components/team/team.module').then(m => m.TeamModule),
+    pathMatch: 'full'
+  },
   {
     path: ':tenantId/3DView',
     canActivate: [AuthGuard, TenantGuard],

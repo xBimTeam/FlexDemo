@@ -11,8 +11,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$flexkit-demo-primary: mat-palette($mat-indigo);
-$flexkit-demo-accent: mat-palette($mat-pink, A200, A100, A400);
+$flexkit-demo-primary: mat-palette($mat-pink);
+$flexkit-demo-accent: mat-palette($mat-purple, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $flexkit-demo-warn: mat-palette($mat-red);
@@ -37,22 +37,28 @@ body {
   font-family: 'Roboto', sans-serif;
   height: 100vh;
 }
-h1,
+h1 {
+  font-family: 'Rajdhani', sans-serif;
+}
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
-
+a {
+  color: #8257fa;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
 #container {
   display: grid;
   grid-template-columns: 250px auto;
   height: 100%;
-  a {
-    text-decoration: none;
-  }
+
   #header {
     background: white;
     height: 64px;
@@ -88,4 +94,12 @@ body {
     background-color: #505050;
     border: 1px solid #a0a0a0;
   }
+}
+
+.mat-card-content {
+  padding: 16px;
+}
+
+.mat-card {
+  margin-top: 16px;
 }

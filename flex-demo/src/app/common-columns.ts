@@ -13,8 +13,7 @@ export const DateCreatedColumns: GridColumnDefinition[] = [
         format: 'Date',
         prefixIcon: 'calendar_today'
     },
-]
-
+];
 
 export const CommonEntityColumns: GridColumnDefinition[] = [
     {
@@ -39,12 +38,12 @@ export const CommonEntityColumns: GridColumnDefinition[] = [
     {
         id: 'AssetModelId',
         title: 'Model #',
-        format: "Integer"
+        format: 'Integer'
     },
     {
         id: 'EntityId',
         title: 'ID',
-        format: "Integer"
+        format: 'Integer'
     },
     {
         id: 'ExternalIdentifier',
@@ -71,7 +70,7 @@ export const CommonEntityColumns: GridColumnDefinition[] = [
     {
         id: 'Documents',
         title: '# Documents',
-        fieldType: "Badge",
+        fieldType: 'Badge',
         field: 'Documents@odata.count',
         orderbyField: 'Documents/$count',
         badgeIcon: 'attachment'
@@ -79,7 +78,7 @@ export const CommonEntityColumns: GridColumnDefinition[] = [
     {
         id: 'Issues',
         title: '# Issues',
-        fieldType: "Badge",
+        fieldType: 'Badge',
         field: 'Issues@odata.count',
         orderbyField: 'Issues/$count',
         badgeIcon: 'warning'

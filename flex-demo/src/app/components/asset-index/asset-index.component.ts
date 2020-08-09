@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClearActive, GoToPage, SetPageSize } from '@ngxs-labs/entity-state';
 import { Select, Store } from '@ngxs/store';
-import { AssetComparer, AssetFilterItem, AssetModelFilterItem, ActivateAssetModelFilterAction, AddAssetFilterAction, AssetEntityState, AssetFilterState, ConnectToAsset, DeactivateAssetModelFilterAction, DisconnectFromAsset, Expand, RemoveAssetFilterAction, SetActive, SetExpands } from '@xbim/flex-webkit';
+import {
+  AssetComparer, AssetFilterItem, AssetModelFilterItem, ActivateAssetModelFilterAction, AddAssetFilterAction,
+  AssetEntityState, AssetFilterState, ConnectToAsset, DeactivateAssetModelFilterAction, DisconnectFromAsset,
+  Expand, RemoveAssetFilterAction, SetActive, SetExpands
+} from '@xbim/flex-webkit';
 import { Asset } from '@xbim/flex-api';
 import { GridColumnDefinition } from '@xbim/grid';
 import { NGXLogger } from 'ngx-logger';
@@ -45,7 +49,7 @@ export class AssetIndexComponent implements OnInit {
     {
       id: 'Models',
       title: '# Models',
-      fieldType: "Badge",
+      fieldType: 'Badge',
       field: 'Models@odata.count',
       orderbyField: 'Models/$count',
       badgeIcon: 'room'

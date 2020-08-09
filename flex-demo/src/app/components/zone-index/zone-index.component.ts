@@ -23,7 +23,7 @@ export class ZoneIndexComponent implements OnInit {
     {
       id: 'Spaces',
       title: '# Spaces',
-      fieldType: "Badge",
+      fieldType: 'Badge',
       field: 'Spaces@odata.count',
       orderbyField: 'Spaces/$count',
       badgeIcon: 'room'
@@ -38,7 +38,7 @@ export class ZoneIndexComponent implements OnInit {
   ngOnInit() {
 
     this.store.dispatch(new AddExpands(ZoneIndexState, [
-      new Expand('Spaces', "$count=true;$select=Name;$top=10"),
+      new Expand('Spaces', '$count=true;$select=Name;$top=10'),
     ]));
   }
 

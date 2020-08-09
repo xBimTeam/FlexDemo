@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { TeamEntityState } from '@xbim/features/team/shared';
+import { TeamEntityState } from './team-state';
 import { EntityComparer } from '@xbim/flex-webkit';
 import { GridColumnDefinition } from '@xbim/grid';
 import { NGXLogger } from 'ngx-logger';

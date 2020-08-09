@@ -1,6 +1,9 @@
 import { Inject } from '@angular/core';
 import { State, Store, Actions } from '@ngxs/store';
-import { EntityIdGenerator, LevelsService, ODataAimEntityStateModel, odataDefaultAimEntityState, ODataEntityState } from '@xbim/flex-webkit';
+import {
+  EntityIdGenerator, LevelsService, ODataAimEntityStateModel,
+  odataDefaultAimEntityState, ODataEntityState
+} from '@xbim/flex-webkit';
 import { Level } from '@xbim/flex-api';
 import { ODataService } from 'angular-odata-es5';
 import { NGXLogger } from 'ngx-logger';

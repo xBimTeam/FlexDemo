@@ -1,44 +1,87 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-<h1>Authentication</h1>
+<h2>Authentication - using OAuth2</h2>
 
-<button mat-raised-button *ngIf="isLoggedIn; else loginButton" (click)="toggleLogin(isLoggedIn)">
-  Logout
-</button>
+<mat-card class="signed-out" *ngIf="!isLoggedIn">
+  <mat-card-header color="primary">
+    <mat-card-title>
+      Sign in
+    </mat-card-title>
+    <mat-card-subtitle>You need a Flex account to access the Flex API.</mat-card-subtitle>
+  </mat-card-header>
 
-<ng-template #loginButton let-isLoggedIn>
-  <button mat-raised-button color="primary" (click)="toggleLogin(isLoggedIn)">
-    Login
-  </button>
-</ng-template>
+  <mat-card-content>
 
-<table style="width:50%" *ngIf="isLoggedIn">
-  <tr>
-    <h2>User Details</h2>
-  </tr>
-  <tr>
-    <td>Logged in:</td>
-    <td><b>{{user.username}} ({{initials$ | async}})</b></td>
-  </tr>
-  <tr>
-    <td>Email:</td>
-    <td><b>{{user.email}}</b></td>
-  </tr>
+    <p>
+      Don't worry - creating an account is completely free and you can use your Microsoft or Google account to
+      register
+    </p>
+    <p>
+      Flex uses OAuth2 to authenticate users to the Flex service. This makes it very simple to register and sign in, and
+      enables features such as Single Sign On and federated authentication against your existing login services.
+    </p>
+  </mat-card-content>
 
-  <tr>
-    <td>Last update:</td>
-    <td><b>{{getDate(user.entityLastUpdated)}}</b></td>
-  </tr>
-  <tr>
-  <tr>
-    <td>Access Token Expires:</td>
-    <td><b>{{getDate(user.tokenExpiresAt)}}</b></td>
-  </tr>
-  <tr>
-    <!-- <tr>
-    <td>Picture:</td>
-    <td><img class="circle responsive-img" src="{{user.picture}}" /></td>
-  </tr> -->
-</table>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="toggleLogin(isLoggedIn)">
+      <mat-icon>login</mat-icon>
+      Sign in
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+
+<mat-card class="signed-in" *ngIf="isLoggedIn">
+  <mat-card-header color="primary">
+    <div mat-card-avatar class="header-image">
+      <span *ngIf="user.picture"><img class="circle responsive-img" src="{{user.picture}}" /></span>
+      <mat-icon *ngIf="!user.picture">account_circle</mat-icon>
+    </div>
+    <mat-card-title>
+      Hello {{user.username}}!
+    </mat-card-title>
+    <mat-card-subtitle>Details of your current session</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <table style="width:50%" *ngIf="isLoggedIn">
+      <tr>
+        <td>Logged in:</td>
+        <td><b>{{user.username}} ({{initials$ | async}})</b></td>
+      </tr>
+      <tr>
+        <td>Email:</td>
+        <td><b>{{user.email}}</b></td>
+      </tr>
+      <tr>
+        <td>Last update:</td>
+        <td><b>{{getDate(user.entityLastUpdated)}}</b></td>
+      </tr>
+      <tr>
+        <td>Access Token Expires:</td>
+        <td><b>{{getDate(user.tokenExpiresAt)}}</b></td>
+      </tr>
+      <tr>
+        <td>Access Token:</td>
+        <td class="token">{{user.token}}</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      Session, token management and refresh is taken care of for you by Flex Webkit. Webkit will also ensure the access
+      token Bearer token is always sent on Flex API requests
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button (click)="toggleLogin(isLoggedIn)" color="primary">
+      <mat-icon>exit_to_app</mat-icon>
+      Sign out
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+
+
 <app-tenant-index *ngIf="isLoggedIn"></app-tenant-index>
 
 <div>

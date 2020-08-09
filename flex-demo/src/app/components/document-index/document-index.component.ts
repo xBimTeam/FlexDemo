@@ -19,7 +19,7 @@ export class DocumentIndexComponent implements OnInit {
     {
       id: 'Components',
       title: '# Components',
-      fieldType: "Badge",
+      fieldType: 'Badge',
       field: 'Components@odata.count',
       orderbyField: 'Components/$count',
       badgeIcon: 'room'
@@ -34,7 +34,7 @@ export class DocumentIndexComponent implements OnInit {
   ngOnInit() {
 
     this.store.dispatch(new AddExpands(DocumentIndexState, [
-      //new Expand('Components', "$count=true;$select=Name;$top=10"),
+      // new Expand('Components', "$count=true;$select=Name;$top=10"),
     ]));
   }
 }

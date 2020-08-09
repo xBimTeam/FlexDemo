@@ -28,6 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   tenantsubscription: Subscription;
   loggedInSubscription: Subscription;
   title = 'app';
+  loading = true;
 
   constructor(private store: Store,
     private logger: NGXLogger) { }
@@ -51,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
         // this.store.dispatch(new DisconnectHub());
       }
     });
+    this.loading = false;
   }
 
 

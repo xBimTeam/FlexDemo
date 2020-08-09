@@ -1,20 +1,114 @@
-<a routerLinkActive="active" [routerLink]="['/tenants']">
-  Tenants
-</a>
-<div>
-  BaselUrl: {{config.baseUrl}}
-</div>
-<div>
-  ClientId: {{config.clientId}}
-</div>
-<div>
-  App Name: {{env.appName}}
-</div>
-<div>
-  Logged In: {{loggedIn$ | async}}
-</div>
-<div *ngIf="loggedIn">
+<h2>Welcome to the xbim Flex demo!</h2>
 
-  User: {{user.username}}
+<mat-card class="intro">
+  <mat-card-header color="primary">
+    <mat-card-title>
+      Flex - Hello World
+    </mat-card-title>
+    <mat-card-subtitle>About Flex</mat-card-subtitle>
+  </mat-card-header>
 
-</div>
+  <mat-card-content>
+    <p>
+      <strong>xbim Flex</strong> is a cloud-based service to host and manage BIM data using OpenBIM format and Open
+      APIs.
+    </p>
+    <p>
+      It's a free for personal use, and designed to make it very simple to work with building data in open formats. You
+      can upload a
+      model in IFC format, and by using our simple <a href="https://api.xbim-dev.net/" target="_blank">REST APIs</a> can
+      interact with the data and
+      visualise the the model in seconds.
+    </p>
+    <p>
+      To make things even easier we've provided some front-end <a href="https://www.npmjs.com/search?q=%40xbim"
+        target="_blank">libraries</a> so
+      you can bootstrap a new application in seconds.
+      While you can just use our pre-generated Typescript libraries (both <a
+        href="https://www.npmjs.com/package/@xbim/flex-react-api" target="_blank">generic</a> and for <a
+        href="https://www.npmjs.com/package/@xbim/flex-api" target="_blank">Angular</a>) to access our services,
+      we recommend using our Angular <a href="https://www.npmjs.com/package/@xbim/flex-webkit" target="_blank">Flex
+        Webkit library</a>, which we're using in this demo.
+    </p>
+    <p>
+      Our own applications such as are built on exactly the same Webkit library client APIs so all
+      those features are available to you, and obviously we'll be adding more features in future. If you've not seen
+      already you can view a public demo here:
+    </p>
+    <div class="demo">
+
+      <a href="https://comms.xbim.net/demo?url=/public/conversations/372/view?utm_source=flexdemo" target="_blank"
+        matTooltip="See a Flex Comms (opens new window)" matTooltipPosition="above"><img
+          src="../../assets/flexcomms.png" alt="Flex comms" height="470" width="854"></a>
+    </div>
+
+    <p>
+      You (and your users / customers) retain ownership of your/their data, and the Flex access control systems ensure
+      only people you authorise can access your data. For mode details see the Flex <a
+        href="https://www.xbim.net/terms-and-conditions/" target="_blank">Terms of Service</a> and <a
+        href="https://www.xbim.net/privacy-policy/" target="_blank"></a>Privacy Policy
+    </p>
+    <p>
+      This repo demonstrates some of the functionality of Flex. We'll be adding more samples soon to don't forget to
+      <code>git pull</code> frequently!
+    </p>
+    <h3>Architecture</h3>
+    <p>
+      Here's a quick overview of the Flex architecture. In this repo, we're building an application in the purple
+      section at the top.
+    </p>
+    <div class="arch"><img src="../../assets/architecture.png" alt="system architecture"></div>
+
+    <h3>Making sense of what's going on under the covers</h3>
+    <p>
+      A key element of the <b>Webkit</b> solution is how it manages data using the 'Redux' state pattern. In a highly
+      asynchonous application
+      such as this, where there are many interactions with the Flex service via an API, the state management pattern
+      simplifies the code required to track state changes.
+      We employ this pattern using the <a href="https://www.ngxs.io/" target="_blank">NGXS</a> library, and use it to
+      undertake all interactions with our API. That includes:
+    </p>
+    <ul>
+      <li>Retrieving data from the API - paging, filtering, sorting, selecting etc.</li>
+      <li>Authenticating users and managing states</li>
+      <li>Routing</li>
+      <li>Working with the xbim 3D viewer. Including loading wexbim and all interactions with the model</li>
+    </ul>
+    <p>
+      To see how state is managed and how actions are trigger to change state we recommend <a
+        href="https://github.com/zalmoxisus/redux-devtools-extension#redux-devtools-extension"
+        target="_blank">installing the Redux Devtools extension</a> in your chosen browser.
+      <img src="../../assets/reduxdevtools.png" alt="Redux dev tools">
+    </p>
+    <h3>Get started!</h3>
+    <p>
+      To see the demo in action sign in below.
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="toggleLogin()">
+      <mat-icon>login</mat-icon>
+      {{loginText$ | async}}
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<h3>Key app data</h3>
+<table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8 fullwidth">
+
+  <!-- Label Column -->
+  <ng-container matColumnDef="label">
+    <th mat-header-cell *matHeaderCellDef> Label </th>
+    <td mat-cell *matCellDef="let element"><strong>{{element.label}}</strong> </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="value">
+    <th mat-header-cell *matHeaderCellDef> Value </th>
+    <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+  </ng-container>
+
+  <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

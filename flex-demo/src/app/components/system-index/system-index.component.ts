@@ -20,7 +20,7 @@ export class SystemIndexComponent implements OnInit {
     {
       id: 'Components',
       title: '# Components',
-      fieldType: "Badge",
+      fieldType: 'Badge',
       field: 'Components@odata.count',
       orderbyField: 'Components/$count',
       badgeIcon: 'room'
@@ -35,7 +35,7 @@ export class SystemIndexComponent implements OnInit {
   ngOnInit() {
 
     this.store.dispatch(new AddExpands(SystemIndexState, [
-      new Expand('Components', "$count=true;$select=Name;$top=10"),
+      new Expand('Components', '$count=true;$select=Name;$top=10'),
     ]));
   }
 

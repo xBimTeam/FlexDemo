@@ -21,7 +21,7 @@ export class LevelIndexComponent implements OnInit {
     {
       id: 'Spaces',
       title: '# Spaces',
-      fieldType: "Badge",
+      fieldType: 'Badge',
       field: 'Spaces@odata.count',
       orderbyField: 'Spaces/$count',
       badgeIcon: 'room'
@@ -37,8 +37,8 @@ export class LevelIndexComponent implements OnInit {
   ngOnInit() {
 
     this.store.dispatch(new AddExpands(LevelIndexState, [
-      new Expand('Model', "$select=SegmentName"),
-      new Expand('Spaces', "$count=true;$select=EntityId;$top=0"),
+      new Expand('Model', '$select=SegmentName'),
+      new Expand('Spaces', '$count=true;$select=EntityId;$top=0'),
     ]));
   }
 }

@@ -1,6 +1,33 @@
-<div>
-  <h1>Your Tenants</h1>
+<div *ngIf="hasTenants$ | async; else noTenant">
+  <h2>Select a Tenant to access their models</h2>
   <flex-table [stateType]="stateType" [displayedColumns]="orderedColumns" [columnDefinitions]="definedColumns"
     [comparer]="comparer" (rowSelected)="activateTenant($event)" (rowDeselected)="clearTenant($event)">
   </flex-table>
 </div>
+
+<ng-template #noTenant>
+  <mat-card class="signed-out" *ngIf="tenantsLoaded$ | async">
+    <mat-card-header color="primary">
+      <mat-card-title>
+        Create a new Tenant Workspace
+      </mat-card-title>
+      <mat-card-subtitle>You need to create a tenant workspace in Flex before using this demo.</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div>
+        You can create a free personal tenant workspace using the Flex application. Refresh this page when you've
+        registered one in Flex.
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <a mat-raised-button color="primary" href="{{config.endpoints.flexAppBaseUrl}}/register" target="_blank">Create
+        a Tenant</a>
+    </mat-card-actions>
+  </mat-card>
+
+  <div class="loading" *ngIf="(tenantsLoaded$ | async) === false">
+    <mat-progress-bar mode="indetermine"></mat-progress-bar>
+  </div>
+</ng-template>

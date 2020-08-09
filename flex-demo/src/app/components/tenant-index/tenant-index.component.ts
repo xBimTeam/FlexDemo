@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ClearActive } from '@ngxs-labs/entity-state';
-import { Store } from '@ngxs/store';
-import { AddExpands, ClearFilters, Expand, Query, SetActive, TenantEntityState, TenantComparer } from '@xbim/flex-webkit';
+import { Store, Select } from '@ngxs/store';
+import { AddExpands, ClearFilters, Expand, Query, SetActive, TenantEntityState, TenantComparer, IConfig, APP_CONFIG } from '@xbim/flex-webkit';
 import { Tenant } from '@xbim/flex-api';
 import { GridColumnDefinition } from '@xbim/grid';
 import { NGXLogger } from 'ngx-logger';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -16,8 +18,17 @@ export class TenantIndexComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private logger: NGXLogger) {
+    private logger: NGXLogger,
+    @Inject(APP_CONFIG)
+    public config: IConfig) {
   }
+
+  @Select(TenantEntityState.itemsTotal) numberOfTenants$: Observable<number>;
+  @Select(TenantEntityState.loaded) tenantsLoaded$: Observable<boolean>;
+
+  hasTenants$ = combineLatest([this.tenantsLoaded$, this.numberOfTenants$]).pipe(map(([loaded, count]) => {
+    return loaded && count > 0;
+  }));
 
   definedColumns: GridColumnDefinition[] = [
     {
@@ -60,7 +71,7 @@ export class TenantIndexComponent implements OnInit {
     {
       id: 'Members',
       title: '# Members',
-      fieldType: "Badge",
+      fieldType: 'Badge',
       field: 'Members@odata.count',
       orderbyField: 'Members/$count',
       badgeIcon: 'person'
