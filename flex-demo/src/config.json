@@ -1,0 +1,14 @@
+{
+  "clientId": "853519a5-e1b1-4be8-93b3-ac21a4180294",
+  "baseUrl": "https://localhost:4202",
+  "userFlowApiKey": "",
+  "endpoints": {
+    "identityBaseUrl": "https://id.xbim-dev.net",
+    "hubApiBaseUrl": "https://hub.xbim-dev.net",
+    "flexApiBaseUrl": "https://api.xbim-dev.net",
+    "flexAppBaseUrl": "https://flex.xbim-dev.net",
+    "commsApiBaseUrl": "https://comms-api.xbim-dev.net",
+    "commsAppBaseUrl": "https://comms.xbim-dev.net",
+    "publicHomePage": "https://localhost:4202"
+  }
+}
