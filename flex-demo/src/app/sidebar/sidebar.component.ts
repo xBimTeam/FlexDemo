@@ -17,11 +17,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
 
   public menuItems = [
-    { name: 'Team', routeLink: 'team', icon: 'group' },
-    { name: 'Invitations', routeLink: 'invitations', icon: 'how_to_reg' },
     { name: 'Assets', routeLink: 'assets', icon: 'business' },
     { name: 'Asset Models', routeLink: 'models', icon: 'folder_special' },
     { name: '3D Viewer', routeLink: '3DView', icon: '3d_rotation' },
+    { type: 'divider' },
     { name: 'Sites', routeLink: 'sites', icon: 'map' },
     { name: 'Facilities', routeLink: 'facilities', icon: 'apartment' },
     { name: 'Levels', routeLink: 'levels', icon: 'layers' },
@@ -31,8 +30,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
     { name: 'Zones', routeLink: 'zones', icon: 'view_quilt' },
     { name: 'Systems', routeLink: 'systems', icon: 'settings_ethernet' },
     { name: 'Documents', routeLink: 'documents', icon: 'description' },
-    // Spares, Jobs, Resources, Issues, Impacts etc.
+    // Contacts, Spares, Jobs, Resources, Issues, Impacts etc.
     { name: 'Applications', routeLink: 'applications', icon: 'apps' },
+    { type: 'divider' },
+    { name: 'Team', routeLink: 'team', icon: 'group' },
+    { name: 'Invitations', routeLink: 'invitations', icon: 'how_to_reg' },
   ];
 
   public tenant: Tenant;

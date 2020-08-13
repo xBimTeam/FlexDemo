@@ -7,6 +7,7 @@ import { GridColumnDefinition } from '@xbim/grid';
 import { NGXLogger } from 'ngx-logger';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Navigate } from '@ngxs/router-plugin';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class TenantIndexComponent implements OnInit {
 
   @Select(TenantEntityState.itemsTotal) numberOfTenants$: Observable<number>;
   @Select(TenantEntityState.loaded) tenantsLoaded$: Observable<boolean>;
+  @Select(TenantEntityState.active) activeTenant$: Observable<Tenant>;
 
   hasTenants$ = combineLatest([this.tenantsLoaded$, this.numberOfTenants$]).pipe(map(([loaded, count]) => {
     return loaded && count > 0;
@@ -108,5 +110,20 @@ export class TenantIndexComponent implements OnInit {
     ]);
   }
 
+  viewModels() {
+    this.navigateToFeature('3DView');
+  }
 
+  viewAssets() {
+    this.navigateToFeature('assets');
+  }
+
+
+  private navigateToFeature(route: string) {
+    const tenant = this.store.selectSnapshot(TenantEntityState.active);
+    if (!tenant) {
+      return;
+    }
+    this.store.dispatch(new Navigate([tenant.Identifier || tenant.TenantId, route]));
+  }
 }

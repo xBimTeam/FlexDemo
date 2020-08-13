@@ -1,16 +1,21 @@
+<div class="loading" *ngIf="(assetLoading$ | async)">
+  <mat-progress-bar mode="indetermine"></mat-progress-bar>
+</div>
 <div class="viewer">
   <h2>WebGL 3D Viewer</h2>
   <div class="header">
     <h3>Choose a building to view</h3>
     <div>
-      <button mat-raised-button [color]="(activeAsset$ | async)?.AssetId == asset.AssetId ? 'accent' : ''"
-        *ngFor="let asset of assets$ | async" (click)="setActive(asset)">{{asset.Name}}
+      <button mat-raised-button [color]="(activeAsset$ | async)?.AssetId == asset.AssetId ? 'accent' : ''" class="asset"
+        *ngFor="let asset of assets$ | async" (click)="setActive(asset)" [matBadge]="asset.Models.length">{{asset.Name}}
       </button>
       <span *ngIf="(assetCount$ | async) === 0">No buildings...</span>
     </div>
     <div class="context" *ngIf="(activeAsset$ | async) != null">
       <div>
-        <button mat-raised-button (click)="unloadCurrentView()">Unload {{currentViewId}}</button>
+        <button mat-raised-button (click)="unloadCurrentView()">
+          <mat-icon>close</mat-icon> Unload {{currentViewId}}
+        </button>
       </div>
 
       <div class="selection">

@@ -20,6 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @Select(AssetEntityState.active) activeAsset$: Observable<Asset>;
   @Select(NotificationsStateSelectors.isConnected) isConnected$: Observable<boolean>;
   @Select(SessionState.isLoggedIn) loggedIn$: Observable<boolean>;
+  @Select(SessionState.loading) loading$: Observable<boolean>;
   @Select(SessionState.userInitials) initials$: Observable<string>;
 
   tenantChanging$ = this.activeTenant$

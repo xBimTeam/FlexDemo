@@ -25,6 +25,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   // @Select(AssetFilterState.assetFilters) assetFilters$: Observable<AssetFilterItem[]>;
   @Select(AssetEntityState.entities) assets$: Observable<Asset[]>;
   @Select(AssetEntityState.active) activeAsset$: Observable<Asset>;
+  @Select(AssetEntityState.loading) assetLoading$: Observable<boolean>;
   @Select(AssetEntityState.itemsTotal) assetCount$: Observable<number>;
   @Select(TenantEntityState.active) activeTenant$: Observable<Tenant>;
   @Select(TenantEntityState.entities) tenants$: Observable<Tenant[]>;

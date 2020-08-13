@@ -26,16 +26,16 @@
 
 
     <mat-divider></mat-divider>
-    <ul>
-      <ng-container *ngIf="tenantLoaded">
-        <li *ngFor="let menu of menuItems">
+    <ul *ngIf="tenantLoaded">
+      <ng-container *ngFor="let menu of menuItems">
+        <li *ngIf="!menu.type">
           <a routerLinkActive="active" [routerLink]="[(tenant.Identifier || tenant.TenantId), menu.routeLink]">
             <mat-icon>{{menu.icon}}</mat-icon>
             {{menu.name}}
           </a>
         </li>
+        <mat-divider *ngIf="menu.type === 'divider'"></mat-divider>
       </ng-container>
     </ul>
-
   </ul>
 </nav>

@@ -1,5 +1,13 @@
 <div *ngIf="hasTenants$ | async; else noTenant">
   <h2>Select a Tenant to access their models</h2>
+  <button mat-raised-button (click)="viewModels()" [disabled]="!(activeTenant$ | async)">
+    <mat-icon>3d_rotation</mat-icon>
+    View {{(activeTenant$ | async)?.Name}} Models
+  </button>
+  <button mat-raised-button (click)="viewAssets()" [disabled]="!(activeTenant$ | async)">
+    <mat-icon>business</mat-icon>
+    View {{(activeTenant$ | async)?.Name}} Assets
+  </button>
   <flex-table [stateType]="stateType" [displayedColumns]="orderedColumns" [columnDefinitions]="definedColumns"
     [comparer]="comparer" (rowSelected)="activateTenant($event)" (rowDeselected)="clearTenant($event)">
   </flex-table>

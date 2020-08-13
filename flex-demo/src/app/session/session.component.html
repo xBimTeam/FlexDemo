@@ -1,28 +1,64 @@
-<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
 <h2>Authentication - using OAuth2</h2>
 
-<mat-card class="signed-out" *ngIf="!isLoggedIn">
+<mat-card class="signed-out" *ngIf="(isLoggedIn$ | async) === false">
   <mat-card-header color="primary">
     <mat-card-title>
-      Sign in
+      Getting 'Signed in'
     </mat-card-title>
-    <mat-card-subtitle>You need a Flex account to access the Flex API.</mat-card-subtitle>
+    <mat-card-subtitle>Users need a Flex account to access the Flex API.</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
 
     <p>
       Don't worry - creating an account is completely free and you can use your Microsoft or Google account to
-      register
+      register.
     </p>
     <p>
       Flex uses OAuth2 to authenticate users to the Flex service. This makes it very simple to register and sign in, and
-      enables features such as Single Sign On and federated authentication against your existing login services.
+      enables features such as Single Sign On and Federated Authentication against your existing login services.
+      So this part can be seamless if you're integrating with an existing app...
     </p>
+
+    <p>
+      <span class="appName">{{env.appName}}</span> is already configured for OAuth2 <a
+        href="https://www.oauth.com/oauth2-servers/server-side-apps/authorization-code/" target="_blank">'code flow'</a>
+      with a 'client' previously registered with the Flex Identity
+      service. You can find the settings in <code>src/environments/base</code>. We also locate details of the endpoints
+      from <code>src/config.json</code> which, unlike environments can be easily altered/generated at runtime.
+    </p>
+
+    <p>
+      The current configuration is:
+    </p>
+
+    <table style="width:50%">
+      <tr>
+        <td>Issuer:</td>
+        <td><b>{{config.endpoints.identityBaseUrl}}</b></td>
+      </tr>
+      <tr>
+        <td>Client Id:</td>
+        <td><b>{{env.clientId}})</b></td>
+      </tr>
+      <tr>
+        <td>Scopes:</td>
+        <td><b>{{env.authConfig.scopes}}</b></td>
+      </tr>
+      <tr>
+        <td>Redirect URL:</td>
+        <td><b>{{env.baseUrl}}</b></td>
+      </tr>
+    </table>
+    <p>
+      When you want to start your own application you'd have your own Client ID assigned.
+    </p>
+    <p>Try signing in now!</p>
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="toggleLogin(isLoggedIn)">
+    <button mat-raised-button color="primary" (click)="toggleLogin()">
       <mat-icon>login</mat-icon>
       Sign in
     </button>
@@ -30,7 +66,7 @@
 </mat-card>
 
 
-<mat-card class="signed-in" *ngIf="isLoggedIn">
+<mat-card class="signed-in" *ngIf="(isLoggedIn$ | async) && (user$ | async) as user">
   <mat-card-header color="primary">
     <div mat-card-avatar class="header-image">
       <span *ngIf="user.picture"><img class="circle responsive-img" src="{{user.picture}}" /></span>
@@ -39,11 +75,16 @@
     <mat-card-title>
       Hello {{user.username}}!
     </mat-card-title>
-    <mat-card-subtitle>Details of your current session</mat-card-subtitle>
+    <mat-card-subtitle>Now we know who we're talking to!</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
-    <table style="width:50%" *ngIf="isLoggedIn">
+
+    <p>
+      Great! So you're signed in. Here's some of what we know about you:
+    </p>
+
+    <table style="width:50%">
       <tr>
         <td>Logged in:</td>
         <td><b>{{user.username}} ({{initials$ | async}})</b></td>
@@ -66,24 +107,32 @@
       </tr>
     </table>
 
-    <div class="note">
-      Session, token management and refresh is taken care of for you by Flex Webkit. Webkit will also ensure the access
-      token Bearer token is always sent on Flex API requests
-    </div>
+    <p class="note">
+      Session, token management and token refresh is taken care of for you by Flex Webkit automatically. Webkit will
+      also ensure the access
+      token Bearer token is always sent on Flex API requests, so that's taken care of.
+    </p>
+
+    <p>
+      Session Management is managed by the <code>SessionState</code> state class, and related actions. You can inspect
+      the current session details in the Redux dev tools by looking at the 'session' key.
+    </p>
+    <p>Signing in automatically triggers a follow up action to load the Tenants you have access to.</p>
+    <p>
+      Next, you need to choose a 'Tenant' to connect to...
+    </p>
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button (click)="toggleLogin(isLoggedIn)" color="primary">
+    <button mat-raised-button (click)="toggleLogin()" [color]="(isLoggedIn$ | async) ? 'accent' : 'primary'">
       <mat-icon>exit_to_app</mat-icon>
       Sign out
     </button>
   </mat-card-actions>
 </mat-card>
 
-
-
-<app-tenant-index *ngIf="isLoggedIn"></app-tenant-index>
+<app-tenant-index *ngIf="isLoggedIn$ | async"></app-tenant-index>
 
 <div>
-  {{error}}
+  {{error$ | async}}
 </div>

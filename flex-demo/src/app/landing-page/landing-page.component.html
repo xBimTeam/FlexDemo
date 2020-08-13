@@ -82,14 +82,15 @@
     </p>
     <h3>Get started!</h3>
     <p>
-      To see the demo in action sign in below.
+      To see the demo in action, in the next section we'll look at <a routerLink="/auth">authentication</a> and getting
+      your users signed in.
     </p>
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="toggleLogin()">
-      <mat-icon>login</mat-icon>
-      {{loginText$ | async}}
+    <button mat-raised-button color="primary" (click)="next()">
+      Authentication
+      <mat-icon>navigate_next</mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>
