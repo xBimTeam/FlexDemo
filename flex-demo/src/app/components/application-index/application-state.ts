@@ -1,8 +1,10 @@
 import { Inject } from '@angular/core';
 import { State, Store, Actions } from '@ngxs/store';
-import { ApplicationIdGenerator, ApplicationService, ODataAimEntityStateModel, odataDefaultAimEntityState, ODataEntityState } from '@xbim/flex-webkit';
-import { Application } from '@xbim/flex-api';
-import { ODataService } from 'angular-odata-es5';
+import {
+  ApplicationIdGenerator, ApplicationService, ODataAimEntityStateModel,
+  odataDefaultAimEntityState, ODataEntityState, ApplicationRepository
+} from '@xbim/flex-webkit';
+import { Application, ApplicationsClient } from '@xbim/flex-api';
 import { NGXLogger } from 'ngx-logger';
 
 
@@ -16,8 +18,9 @@ import { NGXLogger } from 'ngx-logger';
       orderCriteria: [{ field: 'Name', direction: 'asc' }]
     })
 })
-export class ApplicationIndexState extends ODataEntityState<Application> {
-  constructor(@Inject(ApplicationService) service: ODataService<Application>, logger: NGXLogger, store: Store, actions$: Actions) {
-    super(ApplicationIndexState, 'ApplicationId', ApplicationIdGenerator, service, store, logger, actions$, false);
+export class ApplicationIndexState extends ODataEntityState<Application, ApplicationsClient> {
+  constructor(@Inject(ApplicationService) repository: ApplicationRepository, logger: NGXLogger, store: Store, actions$: Actions) {
+
+    super(ApplicationIndexState, 'ApplicationId', ApplicationIdGenerator, repository, store, logger, actions$, false);
   }
 }

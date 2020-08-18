@@ -1,8 +1,10 @@
 import { Inject } from '@angular/core';
 import { State, Store, Actions } from '@ngxs/store';
-import { EntityIdGenerator, ODataAimEntityStateModel, odataDefaultAimEntityState, ODataEntityState, SitesService } from '@xbim/flex-webkit';
-import { Site } from '@xbim/flex-api';
-import { ODataService } from 'angular-odata-es5';
+import {
+  EntityIdGenerator, ODataAimEntityStateModel, odataDefaultAimEntityState,
+  ODataEntityState, SiteService, SiteRepository
+} from '@xbim/flex-webkit';
+import { Site, SitesClient } from '@xbim/flex-api';
 import { NGXLogger } from 'ngx-logger';
 
 
@@ -14,8 +16,9 @@ import { NGXLogger } from 'ngx-logger';
       orderCriteria: [{ field: 'Name', direction: 'asc' }]
     })
 })
-export class SiteIndexState extends ODataEntityState<Site> {
-  constructor(@Inject(SitesService) service: ODataService<Site>, logger: NGXLogger, store: Store, actions$: Actions) {
-    super(SiteIndexState, 'Key', EntityIdGenerator, service, store, logger, actions$);
+export class SiteIndexState extends ODataEntityState<Site, SitesClient> {
+  constructor(@Inject(SiteService) repository: SiteRepository, logger: NGXLogger, store: Store, actions$: Actions) {
+
+    super(SiteIndexState, 'Key', EntityIdGenerator, repository, store, logger, actions$);
   }
 }

@@ -1,8 +1,10 @@
 import { Inject } from '@angular/core';
 import { State, Store, Actions } from '@ngxs/store';
-import { EntityIdGenerator, ODataAimEntityStateModel, odataDefaultAimEntityState, ODataEntityState, ZonesService } from '@xbim/flex-webkit';
-import { Zone } from '@xbim/flex-api';
-import { ODataService } from 'angular-odata-es5';
+import {
+  EntityIdGenerator, ODataAimEntityStateModel,
+  odataDefaultAimEntityState, ODataEntityState, ZoneService, ZoneRepository
+} from '@xbim/flex-webkit';
+import { Zone, ZonesClient } from '@xbim/flex-api';
 import { NGXLogger } from 'ngx-logger';
 
 
@@ -14,8 +16,9 @@ import { NGXLogger } from 'ngx-logger';
       orderCriteria: [{ field: 'Name', direction: 'asc' }]
     })
 })
-export class ZoneIndexState extends ODataEntityState<Zone> {
-  constructor(@Inject(ZonesService) service: ODataService<Zone>, logger: NGXLogger, store: Store, actions$: Actions) {
-    super(ZoneIndexState, 'Key', EntityIdGenerator, service, store, logger, actions$);
+export class ZoneIndexState extends ODataEntityState<Zone, ZonesClient> {
+  constructor(@Inject(ZoneService) repository: ZoneRepository, logger: NGXLogger, store: Store, actions$: Actions) {
+
+    super(ZoneIndexState, 'Key', EntityIdGenerator, repository, store, logger, actions$);
   }
 }

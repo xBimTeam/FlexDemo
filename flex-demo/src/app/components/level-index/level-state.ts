@@ -1,11 +1,10 @@
 import { Inject } from '@angular/core';
 import { State, Store, Actions } from '@ngxs/store';
 import {
-  EntityIdGenerator, LevelsService, ODataAimEntityStateModel,
-  odataDefaultAimEntityState, ODataEntityState
+  EntityIdGenerator, LevelService, ODataAimEntityStateModel,
+  odataDefaultAimEntityState, ODataEntityState, LevelRepository
 } from '@xbim/flex-webkit';
-import { Level } from '@xbim/flex-api';
-import { ODataService } from 'angular-odata-es5';
+import { Level, LevelsClient } from '@xbim/flex-api';
 import { NGXLogger } from 'ngx-logger';
 
 
@@ -17,8 +16,9 @@ import { NGXLogger } from 'ngx-logger';
       orderCriteria: [{ field: 'Name', direction: 'asc' }]
     })
 })
-export class LevelIndexState extends ODataEntityState<Level> {
-  constructor(@Inject(LevelsService) service: ODataService<Level>, logger: NGXLogger, store: Store, actions$: Actions) {
-    super(LevelIndexState, 'Key', EntityIdGenerator, service, store, logger, actions$);
+export class LevelIndexState extends ODataEntityState<Level, LevelsClient> {
+  constructor(@Inject(LevelService) repository: LevelRepository, logger: NGXLogger, store: Store, actions$: Actions) {
+
+    super(LevelIndexState, 'Key', EntityIdGenerator, repository, store, logger, actions$);
   }
 }

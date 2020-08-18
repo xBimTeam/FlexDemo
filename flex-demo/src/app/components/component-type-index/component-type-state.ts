@@ -1,10 +1,11 @@
 import { Inject } from '@angular/core';
 import { State, Store, Actions } from '@ngxs/store';
-import { ComponentTypesService, EntityIdGenerator, ODataAimEntityStateModel, odataDefaultAimEntityState, ODataEntityState } from '@xbim/flex-webkit';
-import { ComponentType } from '@xbim/flex-api';
-import { ODataService } from 'angular-odata-es5';
+import {
+  ComponentTypeService, EntityIdGenerator, ODataAimEntityStateModel,
+  odataDefaultAimEntityState, ODataEntityState, ComponentTypeRepository
+} from '@xbim/flex-webkit';
+import { ComponentType, ComponentTypesClient } from '@xbim/flex-api';
 import { NGXLogger } from 'ngx-logger';
-
 
 
 @State<ODataAimEntityStateModel<ComponentType>>({
@@ -14,8 +15,9 @@ import { NGXLogger } from 'ngx-logger';
       orderCriteria: [{ field: 'Name', direction: 'asc' }]
     })
 })
-export class ComponentTypeIndexState extends ODataEntityState<ComponentType> {
-  constructor(@Inject(ComponentTypesService) service: ODataService<ComponentType>, logger: NGXLogger, store: Store, actions$: Actions) {
-    super(ComponentTypeIndexState, 'Key', EntityIdGenerator, service, store, logger, actions$);
+export class ComponentTypeIndexState extends ODataEntityState<ComponentType, ComponentTypesClient> {
+  constructor(@Inject(ComponentTypeService) repository: ComponentTypeRepository, logger: NGXLogger, store: Store, actions$: Actions) {
+
+    super(ComponentTypeIndexState, 'Key', EntityIdGenerator, repository, store, logger, actions$);
   }
 }
