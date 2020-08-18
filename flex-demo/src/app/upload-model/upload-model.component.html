@@ -1,0 +1,91 @@
+<h2>Uploading models to Flex</h2>
+
+<mat-card class="intro">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            IFC Models need to be converted to a form we can use on the web
+        </mat-card-title>
+        <mat-card-subtitle>The first step in sharing model data</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div>When you upload models to Flex it enables your users to:
+            <ol>
+                <li>Quickly and easily viewing the 3D geometry in a browser</li>
+                <li>Work with the data in your BIM</li>
+                <li>Share building data with others (with controls)</li>
+                <li>Manage and editi your BIM data over the long term</li>
+            </ol>
+
+            When you upload a BIM model (in <a
+                href="https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/"
+                target="_blank">IFC format</a>) we generate some optimised versions of the data for use on the
+            web
+
+            <ul>
+                <li>We create <code>Wexbim</code> format files for optimised viewing in our WebGL viewer</li>
+                <li>We generate data structures to make accessing and editing IFC simple over a REST API</li>
+            </ul>
+
+            Whenever you upload a Model to Flex we automatically generate these data structures, and you'll be notified
+            in real time as the conversion progresse.
+            <br>
+            We always maintain your original upload, which you can download at any time.
+        </div>
+
+    </mat-card-content>
+
+</mat-card>
+
+<mat-card class="intro">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            Lets upload a model
+        </mat-card-title>
+        <mat-card-subtitle>You'll need an IFC model</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div>
+            If you need some files to test with the <a href="https://www.prairieskyconsulting.com/testing.htm"
+                target="_blank">East Dormitory Project</a> is a good place to start. Try the Construction Documents
+            Design files.
+        </div>
+        <label for="file">Choose a model</label>
+
+        <button mat-raised-button id="file" (click)="fileInput.click()">
+            <mat-icon>library_add</mat-icon>
+            <span>Select</span>
+            <input #fileInput type="file" (change)="handleFileInput($event.target.files)" style="display:none;"
+                accept=".ifc,.ifczip,.ifcxml" />
+
+        </button>
+        <mat-form-field>
+            <mat-label>Asset Name</mat-label>
+
+            <input matInput #asset="ngModel" [(ngModel)]="assetName" placeholder="e.g. Head Office" required>
+        </mat-form-field>
+
+        <button mat-raised-button [disabled]="!fileToUpload || !assetName || (uploading$ | async)" color="primary"
+            (click)="upload()">Upload <mat-icon>publish</mat-icon> </button>
+
+        <mat-progress-bar *ngIf="uploading$ | async" mode="determinate" [value]="percentUploaded$ | async">
+        </mat-progress-bar>
+
+        <div *ngIf="latestModel$ | async as model">
+            Uploaded: {{model.Name}}
+
+            <h3>Models Processing</h3>
+
+            <div *ngFor="let m of processing$ | async"><b>{{m.modelName}}</b>: {{m.stageName}}
+                {{m.currentStage}}/{{m.totalStages}} <mat-icon>{{icon(m)}}</mat-icon>
+                <a mat-button routerLinkActive="active" [routerLink]="['../', '3DView']"
+                    [queryParams]="{assetId: m.assetId}" *ngIf="m.isComplete" color="accent">
+                    <mat-icon>3d_rotation</mat-icon> View
+                    Model
+                </a>
+            </div>
+
+        </div>
+    </mat-card-content>
+</mat-card>

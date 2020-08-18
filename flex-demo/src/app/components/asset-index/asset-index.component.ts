@@ -52,7 +52,7 @@ export class AssetIndexComponent implements OnInit {
       fieldType: 'Badge',
       field: 'Models@odata.count',
       orderbyField: 'Models/$count',
-      badgeIcon: 'room'
+      badgeIcon: 'folder_special'
     }
   ];
 

@@ -20,7 +20,7 @@ a Redux devtools addin to your browser. E.g. https://github.com/zalmoxisus/redux
 
 ### Install
 
-1. Run `cd flexdemo`
+1. Run `cd flex-demo`
 1. Run `npm install` to install the dependencies
 
 ### Running
@@ -35,6 +35,7 @@ a Redux devtools addin to your browser. E.g. https://github.com/zalmoxisus/redux
 
 This demo app shows how you can use xbim Flex and the xbim Flex Angular Webkit to :
 
+- Upload new IFC models and convert to wexbim
 - Visualise 3D BIM models
   - Load multiple Wexbim models into a single scene (Federation)
   - Interact with 3D models
@@ -75,7 +76,7 @@ Demonstrate more of the Flex platform's functionality in the webkit. E.g.
   - Transparency modes
   - Animations
   - Plugins
-- [ ] Uploading IFC models & monitoring their import
+- [x] Uploading IFC models & monitoring their import
 - [ ] Working with the xbim Grid for tabular data
 - [ ] Working with Schedules - tabular model data
 - [ ] Associating data with models. E.g. tag document to a space

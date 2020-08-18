@@ -118,6 +118,10 @@ export class TenantIndexComponent implements OnInit {
     this.navigateToFeature('assets');
   }
 
+  upload() {
+    this.navigateToFeature('upload');
+  }
+
 
   private navigateToFeature(route: string) {
     const tenant = this.store.selectSnapshot(TenantEntityState.active);

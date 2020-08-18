@@ -16,6 +16,8 @@ import { SessionComponent } from './session/session.component';
 import { SharedModule } from './shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppRoutingModule } from './app-routing.module';
+import { UploadModelComponent } from './upload-model/upload-model.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { AppRoutingModule } from './app-routing.module';
     SidebarComponent,
     SessionComponent,
     LandingPageComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    UploadModelComponent
   ],
   imports: [
     NgxsRouterPluginModule.forRoot(),
@@ -35,6 +38,7 @@ import { AppRoutingModule } from './app-routing.module';
     }),
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     SharedModule,
     // Sets up lazy loaded application routing
     AppRoutingModule,

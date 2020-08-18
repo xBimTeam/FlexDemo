@@ -17,6 +17,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
 
   public menuItems = [
+    { name: 'Upload', routeLink: 'upload', icon: 'publish' },
     { name: 'Assets', routeLink: 'assets', icon: 'business' },
     { name: 'Asset Models', routeLink: 'models', icon: 'folder_special' },
     { name: '3D Viewer', routeLink: '3DView', icon: '3d_rotation' },

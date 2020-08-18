@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SessionComponent } from './session/session.component';
 import { AuthGuard, TenantGuard } from '@xbim/flex-webkit';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { UploadModelComponent } from './upload-model/upload-model.component';
 
 
 export const routes: Routes = [
@@ -20,6 +21,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./components/tenant-index/tenant-index.module').then(m => m.TenantIndexModule),
     pathMatch: 'full'
+  },
+  {
+    path: ':tenantId/upload',
+    canActivate: [AuthGuard, TenantGuard],
+    component: UploadModelComponent,
   },
   {
     path: ':tenantId/invitations',

@@ -71,8 +71,9 @@ import { FlexGridModule } from '@xbim/grid';
     // MatMenuModule, MatSidenavModule, MatToolbarModule,
 
     // // FormControls
-    // MatAutocompleteModule, MatCheckboxModule, MatDatepickerModule, MatInputModule,
-    // MatFormFieldModule, MatRadioModule, MatSelectModule, MatSliderModule,
+    // MatAutocompleteModule, MatCheckboxModule, MatDatepickerModule, 
+    MatInputModule,
+    MatFormFieldModule, // MatRadioModule, MatSelectModule, MatSliderModule,
     // MatSlideToggleModule, MatSelectModule,
     // // Layout
     MatCardModule,
