@@ -1,7 +1,6 @@
 {
   "clientId": "853519a5-e1b1-4be8-93b3-ac21a4180294",
   "baseUrl": "https://localhost:4202",
-  "userFlowApiKey": "",
   "endpoints": {
     "identityBaseUrl": "https://id.xbim-dev.net",
     "hubApiBaseUrl": "https://hub.xbim-dev.net",

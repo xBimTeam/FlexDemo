@@ -27,7 +27,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/silent-refresh.html",
-              "src/config.json"
+              "src/config.json",
+              "src/web.config"
             ],
             "styles": ["src/styles.scss"],
             "scripts": [],
@@ -52,7 +53,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "3mb",
                   "maximumError": "5mb"
                 },
                 {

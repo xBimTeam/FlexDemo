@@ -3,8 +3,7 @@ import { baseConfig } from './base';
 
 
 export const environment: IEnvironment = {
-  // We can't use spread operator in AOT
-  appName: baseConfig.appName,
+  ...baseConfig,
   production: true,
   authConfig: baseConfig.authConfig
 };
