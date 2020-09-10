@@ -23,9 +23,9 @@ steps:
     displayName: 'npm install and build'
 
   - task: ArchiveFiles@2
-    displayName: 'Archive $(Build.SourcesDirectory)/flex-demo/dist/apps/flex-demo'
+    displayName: 'Archive $(Build.SourcesDirectory)/flex-demo/dist/flex-demo'
     inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)/flex-demo/dist/apps/flex-demo'
+      rootFolderOrFile: '$(Build.SourcesDirectory)/flex-demo/dist/flex-demo'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/flex-demo$(Build.BuildId).zip'
