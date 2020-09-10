@@ -19,15 +19,13 @@ steps:
       cd flex-demo
       npm install -g @angular/cli
       npm install
-      ng build --prod
-    displayName: 'npm install and build'
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      workingDir: 'flex-demo'
-      customCommand: 'run ng build --prod'
-    displayName: 'npm build --prod'
+    displayName: 'npm install'
 
+  - script: |
+      cd flex-demo
+      ng build --prod
+    displayName: 'npm build'
+  
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)/flex-demo/dist/flex-demo'
