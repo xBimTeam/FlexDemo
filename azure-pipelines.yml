@@ -21,6 +21,13 @@ steps:
       npm install
       ng build --prod
     displayName: 'npm install and build'
+  - task: Npm@1
+    inputs:
+      command: 'custom'
+      workingDir: 'flex-demo'
+      customCommand: 'run ng build --prod'
+    displayName: 'npm build --prod'
+
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)/flex-demo/dist/flex-demo'
