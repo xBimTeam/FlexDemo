@@ -29,6 +29,11 @@ $flexkit-demo-theme: mat-light-theme(
 // that you are using.
 @include angular-material-theme($flexkit-demo-theme);
 
+// Get 3 base colors in theme for use in SCSS
+$warn: map-get($flexkit-demo-theme, warn);
+$primary: map-get($flexkit-demo-theme, primary);
+$accent: map-get($flexkit-demo-theme, accent);
+
 //@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* You can add global styles to this file, and also import other style files */
 body {
@@ -78,6 +83,10 @@ body {
 
 ::-webkit-scrollbar {
   width: 8px;
+}
+
+.error {
+  color: mat-color($warn);
 }
 
 ::-webkit-scrollbar-track {

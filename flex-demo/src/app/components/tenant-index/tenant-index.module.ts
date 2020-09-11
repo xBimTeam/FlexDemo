@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { TenantIndexComponent } from './tenant-index.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,7 @@ const routes: Routes = [
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
-        // NgxsModule.forFeature([TenantEntityState]),
+        FormsModule,
         SharedModule
     ],
     exports: [

@@ -1,4 +1,4 @@
-<div *ngIf="hasTenants$ | async; else noTenant">
+<div *ngIf="(hasTenants$ | async); else noTenant">
   <h2>Select a Tenant to access their models</h2>
   <button mat-raised-button (click)="upload()" [disabled]="!(activeTenant$ | async)">
     <mat-icon>publish</mat-icon>
@@ -23,19 +23,40 @@
       <mat-card-title>
         Create a new Tenant Workspace
       </mat-card-title>
-      <mat-card-subtitle>You need to create a tenant workspace in Flex before using this demo.</mat-card-subtitle>
+      <mat-card-subtitle>A Tenant is a secure dedicated area in Flex where you and manage and control access to your BIM
+        data.
+      </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <div>
-        You can create a free personal tenant workspace using the Flex application. Refresh this page when you've
-        registered one in Flex.
+        Any user can create <b>one</b> free personal tenant 'workspace' per email account. If you need more than one
+        account
+        please <a href="mailto:info@xbim.net">contact us</a>. You can invite any user into your tenant workspace with a
+        role.
       </div>
+      <div>Let's create a new tenant for you now:</div>
+      <div>
+        <mat-form-field>
+          <mat-label>Tenant Name</mat-label>
+          <input matInput #tenantName="ngModel" [(ngModel)]="newTenantName" placeholder="e.g. Acme Inc" required>
+        </mat-form-field>
+        <button mat-raised-button [disabled]="!newTenantName || (isSavingTenant$ | async)" color="primary"
+          (click)="createTenant()">
+          <mat-icon>add</mat-icon>Create Tenant
+        </button>
+
+        <mat-progress-bar *ngIf="isSavingTenant$ | async" mode="indeterminate">
+        </mat-progress-bar>
+
+        <div *ngIf="error$ | async" class="error warn">{{error$ | async}}</div>
+      </div>
+      <div>You can also create an account in the Flex application and it will appear here when you return.</div>
     </mat-card-content>
 
     <mat-card-actions>
-      <a mat-raised-button color="primary" href="{{config.endpoints.flexAppBaseUrl}}/register" target="_blank">Create
-        a Tenant</a>
+      <a mat-raised-button href="{{config.endpoints.flexAppBaseUrl}}/register" target="_blank">Register a Tenant in
+        Flex</a>
     </mat-card-actions>
   </mat-card>
 

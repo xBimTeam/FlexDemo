@@ -39,7 +39,7 @@ a Redux devtools addin to your browser. E.g. https://github.com/zalmoxisus/redux
 
 This demo app shows how you can use xbim Flex and the xbim Flex Angular Webkit to :
 
-- Upload new IFC models and convert to wexbim
+- Upload new IFC models, creating 'Assets' and convert to wexbim
 - Visualise 3D BIM models
   - Load multiple Wexbim models into a single scene (Federation)
   - Interact with 3D models
@@ -59,6 +59,7 @@ The Flex Webkit handles a lot of the 'heavy-lifting' to boot-strap a Single Page
   - You can set up an account for free, and use a 3rd party login such as Google or Office365 for convenience
   - Token management, including session management and token renewal is taken care of automatically
   - Bearer tokens are automatically sent along with relevant API calls
+- Creating a dedicated private 'Tenant' workspace for a user
 - Routing and switching between multiple 'tenancies'
   - A Flex Tenant is security boundary to separate one customer from another.
   - A Flex user account may be able to access multiple tenants, and can have different access rights in each one
@@ -85,7 +86,7 @@ Demonstrate more of the Flex platform's functionality in the webkit. E.g.
 - [ ] Working with Schedules - tabular model data
 - [ ] Associating data with models. E.g. tag document to a space
 - [ ] Adding and Editing properties. E.g. Classifying components, renaming spaces.
-- [ ] Creating new Tenants
+- [x] Creating new Tenants
 - [ ] Inviting new users / Team mates
 - [ ] Access control and Role-based security
 - [ ] Spatial querying with Footprints

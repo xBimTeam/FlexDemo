@@ -28,6 +28,11 @@ export class TeamComponent implements OnInit {
       title: 'Email',
       prefixIcon: 'email'
     },
+
+    {
+      id: 'Role',
+      prefixIcon: 'policy'
+    },
     {
       id: 'UserId',
       field: 'UserId'
@@ -35,7 +40,7 @@ export class TeamComponent implements OnInit {
     // Systems, Type
   ];
 
-  orderedColumns = ['UserName', 'UserEmail', 'UserId', 'DateCreated'];
+  orderedColumns = ['UserName', 'UserEmail', 'Role', 'UserId', 'DateCreated'];
   public stateType = TeamEntityState;
   public comparer = new EntityComparer();
 
