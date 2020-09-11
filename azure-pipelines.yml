@@ -4,34 +4,42 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '12.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '12.x'
+    displayName: 'Install Node.js'
 
-- script: |
-    cd flex-demo
-    npm install -g @angular/cli
-    npm install
-    ng build --prod
-  displayName: 'npm install and build'
+  - script: |
+      npm install -g @angular/cli
+    displayName: 'Install NG'
 
-- task: ArchiveFiles@2
-  displayName: 'Archive $(Build.SourcesDirectory)/dist/apps/flex-demo'
-  inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/dist/apps/flex-demo'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/flex-demo$(Build.BuildId).zip'
-    replaceExistingArchive: true
+  - script: |
+      cd flex-demo
+      npm install
+    displayName: 'npm install'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: app'
-  inputs:
-    ArtifactName: app
+  - script: |
+      cd flex-demo
+      ng build --prod
+    displayName: 'npm build'
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive $(Build.SourcesDirectory)/flex-demo/dist/flex-demo'
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)/flex-demo/dist/flex-demo'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/flex-demo$(Build.BuildId).zip'
+      replaceExistingArchive: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: app'
+    inputs:
+      ArtifactName: app
+

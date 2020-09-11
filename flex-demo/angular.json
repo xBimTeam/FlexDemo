@@ -28,6 +28,7 @@
               "src/assets",
               "src/silent-refresh.html",
               "src/config.json",
+              "src/config.aspx",
               "src/web.config"
             ],
             "styles": ["src/styles.scss"],

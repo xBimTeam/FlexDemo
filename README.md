@@ -6,6 +6,10 @@ IFC OpenBIM format.
 
 ![Screenshot](assets/img/screenshot.png)
 
+## See it in action
+
+See a [live demo](https://flexdemo.xbim-dev.net/) of the Flex Webkit to see what you can do with Flex!
+
 ## Getting Started
 
 This is an [Angular 9](https://angular.io/docs) front-end web project, demonstrating how to use the
