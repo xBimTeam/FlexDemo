@@ -42,3 +42,4 @@ steps:
     displayName: 'Publish Artifact: app'
     inputs:
       ArtifactName: app
+
