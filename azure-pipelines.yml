@@ -16,10 +16,13 @@ steps:
     displayName: 'Install Node.js'
 
   - script: |
-      cd flex-demo
       npm install -g @angular/cli
-      npm install
-    displayName: 'npm install'
+    displayName: 'Install NG'
+
+  - script: |
+    cd flex-demo
+    npm install
+  displayName: 'npm install'
 
   - script: |
       cd flex-demo
