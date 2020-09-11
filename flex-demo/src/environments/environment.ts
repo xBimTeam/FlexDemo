@@ -9,7 +9,7 @@ import { baseConfig } from './base';
 export const environment: IEnvironment = {
   ...baseConfig,
   production: false,
-  authConfig: baseConfig.authConfig,
+  authConfig: baseConfig.authConfig
 };
 
 /*

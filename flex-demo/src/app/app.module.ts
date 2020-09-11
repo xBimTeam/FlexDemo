@@ -18,7 +18,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UploadModelComponent } from './upload-model/upload-model.component';
 import { FormsModule } from '@angular/forms';
-
+import { actionSanitizer, stateSanitizer } from './utils';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,12 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     NgxsRouterPluginModule.forRoot(),
-    NgxsReduxDevtoolsPluginModule.forRoot({ name: environment.appName }),
+    NgxsReduxDevtoolsPluginModule.forRoot(
+      {
+        name: environment.appName,
+        actionSanitizer,
+        stateSanitizer
+      }),
     LoggerModule.forRoot({
       level: environment.production ? NgxLoggerLevel.INFO : NgxLoggerLevel.DEBUG,
       enableSourceMaps: true
