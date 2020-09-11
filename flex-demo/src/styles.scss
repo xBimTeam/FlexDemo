@@ -112,3 +112,7 @@ body {
 .mat-card {
   margin-top: 16px;
 }
+
+canvas:focus {
+  outline: none;
+}

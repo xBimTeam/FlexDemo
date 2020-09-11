@@ -119,7 +119,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.picked$
       .pipe(takeUntil(this.destroy$))
       .subscribe(pick => {
-        if (pick == null || pick.length === 0) {
+        if (pick === null || pick.length === 0) {
           return;
         }
         this.selected$.pipe(

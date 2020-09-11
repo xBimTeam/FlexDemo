@@ -23,7 +23,8 @@
           <strong>Picked:</strong>
           <span *ngFor="let pick of picked$ | async">
             [Asset: {{pick.assetModel.assetId}} Model: {{pick.assetModel.assetModelId}} Entity: {{pick.entityId}}]
-            (x={{pick.xyz[0] | number}}, y={{pick.xyz[1] | number}}, z={{pick.xyz[2] | number}} )
+            <span *ngIf="pick.xyz">(x={{pick.xyz[0] | number}}, y={{pick.xyz[1] | number}}, z={{pick.xyz[2] | number}}
+              )</span>
           </span>
         </div>
         <div>
@@ -46,11 +47,8 @@
   </div>
   <div class="view">
 
-
-    <div id="viewer_canvas"></div>
-    <div id="detail-view" [class.hidden]="!showDetails"></div>
-    <div id="fps">FPS {{fps$ | async}}</div>
-    <div id="props" *ngIf="properties?.entityId" [style.left.px]="properties.x+12" [style.top.px]="properties.y+24">
+    <div id="props" *ngIf="properties?.entityId" [style.margin-left.px]="properties.x"
+      [style.margin-top.px]="properties.y">
       <table>
         <tr>
           <th>Type</th>
@@ -66,6 +64,10 @@
         </tr>
       </table>
     </div>
+
+    <div id="viewer_canvas"></div>
+    <div id="detail-view" [class.hidden]="!showDetails"></div>
+    <div id="fps">FPS {{fps$ | async}}</div>
 
     <mat-progress-bar *ngIf="(modelLoading$ | async).loading" color="primary" mode="determinate"
       [value]="(modelLoading$ | async).percent"></mat-progress-bar>

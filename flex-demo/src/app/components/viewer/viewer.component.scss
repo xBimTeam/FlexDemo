@@ -69,9 +69,19 @@
 #props {
   position: absolute;
   min-width: 100px;
+  z-index: 50;
+  max-width: 300px;
   pointer-events: none;
   background-color: #000000a0;
   border-radius: 4px;
   color: white;
   min-height: 50px;
+  // position: absolute;
+  // pointer-events: none;
+  // background-color: #000000a0;
+  // border-radius: 4px;
+  // color: white;
+  // min-height: 50px;
+  // z-index: 50;
+  // overflow: hidden;
 }
