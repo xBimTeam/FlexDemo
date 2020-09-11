@@ -20,15 +20,14 @@ steps:
     displayName: 'Install NG'
 
   - script: |
-    cd flex-demo
-    npm install
-  displayName: 'npm install'
+      cd flex-demo
+      npm install
+    displayName: 'npm install'
 
   - script: |
       cd flex-demo
       ng build --prod
     displayName: 'npm build'
-  
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)/flex-demo/dist/flex-demo'
