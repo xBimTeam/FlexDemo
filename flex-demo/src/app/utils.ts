@@ -18,6 +18,20 @@ export function actionSanitizer(action: any) {
 export function stateSanitizer(state: any): any {
     let sanitized = { ...state };
 
+    if (sanitized.router && sanitized.router.state && sanitized.router.state.root) {
+        sanitized = {
+            ...sanitized,
+            router: {
+                ...sanitized.router,
+                state: {
+                    ...sanitized.router.state,
+                    root: SANITIZED
+                }
+            }
+
+        };
+    }
+
     if (sanitized.session && sanitized.session.user && sanitized.session.user.token) {
         sanitized = {
             ...sanitized,
