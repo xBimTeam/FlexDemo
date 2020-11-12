@@ -40,6 +40,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   @Select(ViewerStateSelectors.activeView(null)) activeView$: Observable<ViewStateModel>;
 
 
+
   private destroy$ = new Subject<void>();
 
   DefaultTypes: ModelType[] = [
@@ -47,7 +48,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
     ModelType.WINDOWS_DOORS,
     ModelType.SITE,
     ModelType.COMPONENT,
-    /*ModelType.SPATIAL_STRUCTURE */];
+    ModelType.SPATIAL_STRUCTURE
+  ];
 
   public properties: { assetModel: ModelRef, entityId: number, x: number, y: number } = { assetModel: null, entityId: null, x: 0, y: 0 };
   public showDetails = false;
@@ -203,7 +205,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
     const models = this.splitModelsByType(asset.Models, this.DefaultTypes);
 
-    this.store.dispatch(new SetViewerProperties(currentViewId, { navigationCubeOn: true, hoverHighlightOn: true, loaderOverlayOn: true }));
+    this.store.dispatch(new SetViewerProperties(currentViewId, {
+      navigationCubeOn: true, hoverHighlightOn: true, loaderOverlayOn: true,
+      showSpaces: false
+    }));
     this.store.dispatch(new LoadModelsIntoView(currentViewId, models));
 
   }
@@ -247,5 +252,12 @@ export class ViewerComponent implements OnInit, OnDestroy {
       .subscribe(entities => {
         this.store.dispatch(new SetRepresentationColour(this.currentViewId, ViewerStyle.RED_80, entities));
       });
+  }
+
+  toggleSpaces() {
+    const view = this.store.selectSnapshot(ViewerStateSelectors.activeView(this.currentViewId));
+    const show = !view.showSpaces;
+    this.store.dispatch(new SetViewerProperties(this.currentViewId, { showSpaces: show }));
+
   }
 }
