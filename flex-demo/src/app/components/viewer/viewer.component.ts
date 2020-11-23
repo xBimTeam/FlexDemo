@@ -250,7 +250,11 @@ export class ViewerComponent implements OnInit, OnDestroy {
       take(1)
     )
       .subscribe(entities => {
-        this.store.dispatch(new SetRepresentationColour(this.currentViewId, ViewerStyle.RED_80, entities));
+        this.store.dispatch(
+          [
+            new SetRepresentationColour(this.currentViewId, ViewerStyle.RED_80, entities),
+            new RemoveEntityState(this.currentViewId, ViewerEntityState.HIGHLIGHTED, entities)
+          ]);
       });
   }
 
