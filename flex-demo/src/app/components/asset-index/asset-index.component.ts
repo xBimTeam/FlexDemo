@@ -4,7 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import {
   AssetComparer, AssetFilterItem, AssetModelFilterItem, ActivateAssetModelFilterAction, AddAssetFilterAction,
   AssetEntityState, AssetFilterState, ConnectToAsset, DeactivateAssetModelFilterAction, DisconnectFromAsset,
-  Expand, RemoveAssetFilterAction, SetActive, SetExpands
+  Expand, RemoveAssetFilterAction, SetActive, SetExpands, SetOrderBys, SortOrder
 } from '@xbim/flex-webkit';
 import { Asset } from '@xbim/flex-api';
 import { GridColumnDefinition } from '@xbim/grid';
@@ -64,6 +64,7 @@ export class AssetIndexComponent implements OnInit {
     // loads the asset data unless we've recently loaded it
     if (this.store.selectSnapshot(AssetEntityState.isStale())) {
       this.store.dispatch([
+        new SetOrderBys(AssetEntityState, new SortOrder('DateCreated', 'desc')),
         new SetPageSize(AssetEntityState, 10),
         new SetExpands<Asset>(AssetEntityState, new Expand('Models', '$count=true;$select=AssetModelId,Name,SegmentName'))]);
       this.store.dispatch(new GoToPage(AssetEntityState, { first: true }));
