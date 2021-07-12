@@ -116,6 +116,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard, TenantGuard],
     loadChildren: () => import('./components/application-index/application-index.module').then(m => m.ApplicationIndexModule),
     pathMatch: 'full'
+  },
+  {
+    path: ':tenantId/diffs',
+    canActivate: [AuthGuard, TenantGuard],
+    loadChildren: () => import('./components/diffs/diffs.module').then(m => m.DiffsModule),
   }
 
 
@@ -123,7 +128,7 @@ export const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-
+    //enableTracing: true
   })],
   exports: [RouterModule]
 })
