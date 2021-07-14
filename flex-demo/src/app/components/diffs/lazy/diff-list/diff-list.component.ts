@@ -6,9 +6,9 @@ import { ModelMapping } from '@xbim/flex-api';
 import { AddExpands, Expand, SetActive } from '@xbim/flex-webkit';
 import { GridColumnDefinition } from '@xbim/grid';
 import { NGXLogger } from 'ngx-logger';
-import { CommonEntityColumns, DateCreatedColumns } from 'src/app/common-columns';
-import { ModelMappingService } from '../state/diff-service.providers';
-import { ModelMappingState } from '../state/diffs-state';
+import { DateCreatedColumns } from 'src/app/common-columns';
+import { ModelMappingState } from '../../shared/state/diffs-state';
+
 import { ModelMappingComparer } from './diff-comparer';
 
 @Component({

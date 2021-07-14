@@ -1,0 +1,53 @@
+<div class="view">
+
+    <div id="tooltip" [class.visible]="showTooltip" [style.left.px]="(hoverOver$ | async)?.x+300"
+        [style.top.px]="(hoverOver$ | async)?.y+90">
+        <app-tooltip [tooltipData]="tooltipData$ | async"></app-tooltip>
+    </div>
+    <div id="viewer_canvas"></div>
+
+    <mat-progress-bar *ngIf="(modelLoading$ | async).loading" color="primary" mode="determinate"
+        [value]="(modelLoading$ | async).percent"></mat-progress-bar>
+
+</div>
+
+<mat-card class="diff" *ngIf="activeDiff$ | async as diff">
+    <mat-card-header>
+        <mat-card-title>Model Comparison</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-selection-list (selectionChange)="changeSelected($event)">
+            <mat-list-option *ngFor="let model of models$ | async; let i = index" [value]="model.AssetModelId"
+                selected="true">
+                <mat-icon matListIcon [class.base]="i === 0" [class.target]="i !== 0">insert_drive_file
+                </mat-icon>
+                <h3 class="mat-h3" matLine>{{model.Name}} </h3>
+                <p matLine class="sub file">
+                    <span class="label"> {{model.ModelSize / 1024 | number:'1.0-0'}} KB </span> uploaded
+                    <span class="label">{{model.DateUploaded | amCalendar}}</span>
+                    <span> </span>
+                </p>
+                <p matLine class="sub status">
+                    <span class="label">Rev</span> {{model.Revision || '-'}} - <span class="label">Status</span>
+                    {{model.Status || '-'}}
+                </p>
+
+            </mat-list-option>
+        </mat-selection-list>
+        <div><b>Missing from {{diff.SourceAssetModel.Name}} Rev {{diff.SourceAssetModel.Revision}}</b></div>
+        <app-lost-items></app-lost-items>
+        <div><b>New in {{diff.TargetAssetModel.Name}} Rev {{diff.TargetAssetModel.Revision}}</b></div>
+        <app-found-items></app-found-items>
+        <app-candidate-items></app-candidate-items>
+        <app-mapped-items></app-mapped-items>
+        <mat-progress-bar *ngIf="(mappingLoading$ | async)" color="primary" mode="indeterminate"></mat-progress-bar>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="showDifferences()" color="primary">
+            <mat-icon>compare</mat-icon>Colour code
+        </button>
+        <button mat-button (click)="resetView()">
+            <mat-icon>clear</mat-icon>Reset view
+        </button>
+    </mat-card-actions>
+</mat-card>

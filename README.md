@@ -67,6 +67,9 @@ The Flex Webkit handles a lot of the 'heavy-lifting' to boot-strap a Single Page
 - Providing data-bound UI components such as a grid to display results in
 - Real-time messaging
 - Build a modular lazy-loaded application around Flex
+- Model differencing - enabling maps to be generated between model 2 different models, and interactively explored.
+
+![Model Differencing](assets/img/model-diff.PNG)
 
 ## TODO - Coming soon
 
@@ -82,6 +85,7 @@ Demonstrate more of the Flex platform's functionality in the webkit. E.g.
   - Animations
   - Plugins
 - [x] Uploading IFC models & monitoring their import
+- [x] Model Differencing
 - [ ] Working with the xbim Grid for tabular data
 - [ ] Working with Schedules - tabular model data
 - [ ] Associating data with models. E.g. tag document to a space

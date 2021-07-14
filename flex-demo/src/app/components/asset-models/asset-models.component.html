@@ -4,8 +4,15 @@
 
     <div>
       <flex-table [stateType]="stateType" [displayedColumns]="orderedColumns" [columnDefinitions]="definedColumns"
-        [comparer]="comparer">
+        [comparer]="comparer" allowMultipleSelection="true">
       </flex-table>
+    </div>
+    <div class="actions">
+      <mat-progress-bar *ngIf="(saving$ | async)" color="primary" mode="indeterminate"></mat-progress-bar>
+      <button mat-raised-button id="diff" (click)="createDiff()" [disabled]="(diffEnabled$ | async) == false">
+        <mat-icon>compare</mat-icon>
+        Compare
+      </button>
     </div>
 
     <h2>Active Asset Filters</h2>

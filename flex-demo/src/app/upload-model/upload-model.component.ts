@@ -5,6 +5,12 @@ import { Observable } from 'rxjs';
 import { Model } from '@xbim/flex-api';
 import { tap } from 'rxjs/operators';
 
+export interface FileItem {
+  file: File,
+  revision: string,
+  state: 'Uploaded' | ''
+}
+
 @Component({
   selector: 'app-upload-model',
   templateUrl: './upload-model.component.html',
@@ -17,7 +23,8 @@ export class UploadModelComponent implements OnInit {
   @Select(AssetModelSelectors.uploadPercentComplete) percentUploaded$: Observable<number>;
   @Select(NotificationsStateSelectors.processingModels) processing$: Observable<ModelProcessingStatus[]>;
 
-  fileToUpload: File = null;
+  //fileToUpload: File = null;
+  filesToUpload: FileItem[] = [];
   assetName = '';
 
   constructor(private store: Store) { }
@@ -26,14 +33,23 @@ export class UploadModelComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    // TODO: Multi-select
-    this.fileToUpload = files.item(0);
+
+    for (let i = 0; i < files.length; i++) {
+      this.filesToUpload.push(<FileItem>{ file: files.item(i), revision: '' });
+    }
+
   }
 
   upload() {
-    // Upload the file using the store, and clear the file when complete
-    this.store.dispatch(new UploadModelFile(this.fileToUpload, this.assetName))
-      .pipe(tap(_ => this.fileToUpload = undefined));
+    this.filesToUpload.forEach(f => {
+      // Upload the file using the store, and clear the file when complete
+      this.store.dispatch(new UploadModelFile(f.file, this.assetName, undefined, f.revision))
+        .pipe(tap(_ => {
+          f.state = 'Uploaded';
+          this.filesToUpload = [];
+        }
+        ));
+    });
   }
 
   icon(state: ModelProcessingStatus): string {

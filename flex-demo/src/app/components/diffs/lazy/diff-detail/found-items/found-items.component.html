@@ -1,0 +1,33 @@
+<div class="found">
+
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+
+            <ng-container *ngIf="node.type !== 'root'">
+                <button mat-icon-button (click)="zoomTo(node)">
+                    <mat-icon class="mat-icon-rtl-mirror">add_circle_outline</mat-icon>
+                </button>
+                <mat-checkbox class="checklist-leaf-node" [checked]="checklistSelection.isSelected(node)"
+                    (change)="leafItemSelectionToggle(node)">{{node.name}}</mat-checkbox>
+            </ng-container>
+            <ng-container *ngIf="node.type === 'root'">Nothing</ng-container>
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: treeService.hasChild" matTreeNodePadding>
+
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+            </button>
+            <mat-checkbox [checked]="descendantsAllSelected(node)" [indeterminate]="descendantsPartiallySelected(node)"
+                (change)="itemSelectionToggle(node)">
+                <span [matBadge]="node.childCount" matBadgeOverlap="false">{{node.name}}</span>
+            </mat-checkbox>
+            <!-- <span [matBadge]="node.childCount" matBadgeOverlap="false">{{node.name}}</span> -->
+        </mat-tree-node>
+    </mat-tree>
+
+
+</div>

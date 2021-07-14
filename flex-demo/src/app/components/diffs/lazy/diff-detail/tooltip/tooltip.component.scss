@@ -1,0 +1,21 @@
+th,
+td {
+  min-width: 100px;
+  max-width: 200px;
+
+  vertical-align: top;
+  text-align: left;
+  border-bottom: solid thin #c0c0c040;
+}
+
+td {
+  &.data {
+    font-weight: lighter;
+    word-break: break-all;
+  }
+}
+.clip {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

@@ -6,6 +6,7 @@ import { NgxsModule } from '@ngxs/store';
 import { AssetModelEntityState } from '@xbim/flex-webkit';
 import { SharedModule } from '../../shared/shared.module';
 import { AssetModelsComponent } from './asset-models.component';
+import { DiffSharedModule } from '../diffs/shared/diff-shared.module';
 
 const routes: Routes = [
     {
@@ -19,6 +20,7 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         NgxsModule.forFeature([AssetModelEntityState]),
+        DiffSharedModule,
         SharedModule
     ],
     declarations: [AssetModelsComponent]

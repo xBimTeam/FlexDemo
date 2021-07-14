@@ -51,23 +51,42 @@
                 target="_blank">East Dormitory Project</a> is a good place to start. Try the Construction Documents
             Design files.
         </div>
-        <label for="file">Choose a model</label>
+
+        <label for="file">Choose models</label>
 
         <button mat-raised-button id="file" (click)="fileInput.click()">
             <mat-icon>library_add</mat-icon>
             <span>Select</span>
             <input #fileInput type="file" (change)="handleFileInput($event.target.files)" style="display:none;"
-                accept=".ifc,.ifczip,.ifcxml" />
+                accept=".ifc,.ifczip,.ifcxml" multiple />
 
         </button>
-        <mat-form-field>
-            <mat-label>Asset Name</mat-label>
 
-            <input matInput #asset="ngModel" [(ngModel)]="assetName" placeholder="e.g. Head Office" required>
-        </mat-form-field>
+        <div>
+            <mat-list class="fileslist">
 
-        <button mat-raised-button [disabled]="!fileToUpload || !assetName || (uploading$ | async)" color="primary"
-            (click)="upload()">Upload <mat-icon>publish</mat-icon> </button>
+                <mat-list-item *ngFor="let file of filesToUpload; let i=index">
+                    <h4 mat-line>{{file.file.name}} {{file.state}}</h4>
+                    <mat-form-field>
+
+                        <input type="text" matInput required [name]="'rev_' + i" placeholder="Revision"
+                            [(ngModel)]="file.revision">
+
+                    </mat-form-field>
+                </mat-list-item>
+
+            </mat-list>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Asset Name</mat-label>
+
+                <input matInput #asset="ngModel" [(ngModel)]="assetName" placeholder="e.g. Head Office" required>
+            </mat-form-field>
+            <button mat-raised-button [disabled]="(filesToUpload.length < 1) || !assetName || (uploading$ | async)"
+                color="primary" (click)="upload()">Upload <mat-icon>publish</mat-icon> </button>
+        </div>
+
 
         <mat-progress-bar *ngIf="uploading$ | async" mode="determinate" [value]="percentUploaded$ | async">
         </mat-progress-bar>

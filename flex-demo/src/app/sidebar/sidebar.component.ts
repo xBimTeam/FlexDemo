@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     { name: 'Asset Models', routeLink: 'models', icon: 'folder_special' },
     // { name: '3D Viewer', routeLink: '3DView', icon: '3d_rotation' },
     { type: 'divider' },
-    { name: 'Model Changes', routeLink: 'diffs', icon: 'compare' },
+    { name: 'Model Comparison', routeLink: 'diffs', icon: 'compare' },
     // { name: 'Sites', routeLink: 'sites', icon: 'map' },
     // { name: 'Facilities', routeLink: 'facilities', icon: 'apartment' },
     // { name: 'Levels', routeLink: 'levels', icon: 'layers' },

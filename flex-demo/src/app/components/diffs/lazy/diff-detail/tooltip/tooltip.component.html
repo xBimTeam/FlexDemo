@@ -1,0 +1,39 @@
+<table *ngIf="tooltipData && tooltipData.Attributes">
+    <!-- <tr>
+      <th class="clip" colspan="2">{{tooltipData.Name}}</th>
+    </tr>
+    <tr *ngIf="tooltipData.ComponentTypeName">
+      <th class="clip" colspan="2"><i>{{tooltipData.ComponentTypeName}}</i></th>
+    </tr>
+     -->
+
+    <tr>
+        <td>Name</td>
+        <td class="data">{{tooltipData.Name}}</td>
+    </tr>
+    <tr>
+        <td>Model</td>
+        <td class="data">{{tooltipData.Model.Name}} - {{tooltipData.Model.Revision}}</td>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td class="data">{{tooltipData.ExternalObjectName}}</td>
+    </tr>
+    <tr>
+        <td>ID</td>
+        <td class="data">{{tooltipData.EntityId}}</td>
+    </tr>
+    <tr *ngFor="let attr of tooltipData.Attributes">
+        <td>{{attr.Name}}</td>
+        <td class="data" [ngSwitch]="attr.Value.DataType">
+
+            <span *ngSwitchCase="'Real'">{{attr.Value.Real | number:'1.0-2'}} <sup>{{attr.Unit | unit}}</sup></span>
+            <span *ngSwitchCase="'Integer'">{{attr.Value.Integer | number:'1.0-0'}} <sup>{{attr.Unit |
+                    unit}}</sup></span>
+            <span *ngSwitchCase="'Logical'">{{attr.Value.Logical}}</span>
+            <span *ngSwitchCase="'Date'">{{attr.Value.Date | amCalendar}}</span>
+            <span *ngSwitchDefault>{{attr.Value.Text}}</span>
+
+        </td>
+    </tr>
+</table>

@@ -120,7 +120,7 @@ export const routes: Routes = [
   {
     path: ':tenantId/diffs',
     canActivate: [AuthGuard, TenantGuard],
-    loadChildren: () => import('./components/diffs/diffs.module').then(m => m.DiffsModule),
+    loadChildren: () => import('./components/diffs/lazy/diffs.module').then(m => m.DiffsModule),
   }
 
 

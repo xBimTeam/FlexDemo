@@ -1,0 +1,37 @@
+<div class="candidates">
+    <b>Potential Matches</b>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [matTooltip]="'Matched by ' + node.matchType"
+            matTooltipPosition="right">
+            <ng-container *ngIf="node.type !== 'root'">
+                <button mat-icon-button (click)="zoomTo(node)">
+                    <mat-icon class="mat-icon-rtl-mirror">help_outline</mat-icon>
+                </button>
+
+                <mat-checkbox class="checklist-leaf-node" [checked]="checklistSelection.isSelected(node)"
+                    (change)="leafItemSelectionToggle(node)">{{node.name}} <span
+                        class="percent">({{node.percent}}%)</span>
+                </mat-checkbox>
+            </ng-container>
+            <ng-container *ngIf="node.type === 'root'">Nothing</ng-container>
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: treeService.hasChild" matTreeNodePadding>
+
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+            </button>
+
+            <mat-checkbox [checked]="descendantsAllSelected(node)" [indeterminate]="descendantsPartiallySelected(node)"
+                (change)="itemSelectionToggle(node)">
+                <span [matBadge]="node.childCount" matBadgeColor="accent" matBadgeOverlap="false">{{node.name}}</span>
+            </mat-checkbox>
+
+        </mat-tree-node>
+    </mat-tree>
+
+
+</div>
