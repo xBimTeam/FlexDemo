@@ -69,7 +69,7 @@ The Flex Webkit handles a lot of the 'heavy-lifting' to boot-strap a Single Page
 - Build a modular lazy-loaded application around Flex
 - Model differencing - enabling maps to be generated between model 2 different models, and interactively explored.
 
-![Model Differencing](assets/img/model-diff.PNG)
+![Model Differencing](assets/img/model-diff.png)
 
 ## TODO - Coming soon
 
