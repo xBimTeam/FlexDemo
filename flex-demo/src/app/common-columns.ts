@@ -15,6 +15,21 @@ export const DateCreatedColumns: GridColumnDefinition[] = [
     },
 ];
 
+export const LowerDateCreatedColumns: GridColumnDefinition[] = [
+    {
+        id: 'dateModified',
+        title: 'Date Modified',
+        format: 'Date',
+        prefixIcon: 'calendar_today'
+    },
+    {
+        id: 'dateCreated',
+        title: 'Date Created',
+        format: 'Date',
+        prefixIcon: 'calendar_today'
+    },
+]
+
 export const CommonEntityColumns: GridColumnDefinition[] = [
     {
         id: 'Name',

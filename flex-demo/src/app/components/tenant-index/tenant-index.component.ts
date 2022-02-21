@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ClearActive, Add, } from '@ngxs-labs/entity-state';
 import { Store, Select } from '@ngxs/store';
 import { AddExpands, ClearFilters, Expand, Query, SetActive, TenantEntityState, TenantComparer, IConfig, APP_CONFIG } from '@xbim/flex-webkit';
-import { Tenant } from '@xbim/flex-api';
+import { Tenant } from '@xbim/flex-identity-api';
 import { GridColumnDefinition } from '@xbim/grid';
 import { NGXLogger } from 'ngx-logger';
 import { Observable, combineLatest } from 'rxjs';
@@ -46,55 +46,61 @@ export class TenantIndexComponent implements OnInit {
   // defines the available columns in the Grid. The exact columns displayed and their order is defined separately
   definedColumns: GridColumnDefinition[] = [
     {
-      id: 'Name',
+      id: 'name',
       title: 'Name',
       isPrimary: true
     },
     {
-      id: 'Role',
+      id: 'role',
       title: 'TenantRole',
     },
     {
-      id: 'Identifier',
+      id: 'identifier',
       title: 'Identifier',
     },
     {
-      id: 'DateModified',
+      id: 'regionCode',
+      title: 'Region',
+    },
+    {
+      id: 'dateModified',
       title: 'Date Modified',
       format: 'Date',
       prefixIcon: 'calendar_today'
     },
     {
-      id: 'DateCreated',
+      id: 'dateCreated',
       title: 'Date Created',
       format: 'Date',
       prefixIcon: 'calendar_today'
     },
     {
-      id: 'CreatedBy',
+      id: 'createdBy',
       title: 'Created By',
       fieldType: 'Reference', // Special field type that traverses a relationship
-      field: 'Name'
+      field: 'name'
     },
     {
-      id: 'Owner',
+      id: 'owner',
       title: 'Owner',
       fieldType: 'Reference',
-      field: 'Name'
+      field: 'name'
     },
     {
-      id: 'Members',
+      id: 'members',
       title: '# Members',
       fieldType: 'Badge',   // Special field type providing a badge, typically used to show the number of 'child' items
-      field: 'Members@odata.count',
-      orderbyField: 'Members/$count',
+      field: 'members@odata.count',
+      orderbyField: 'members/$count',
       badgeIcon: 'person'
     }
   ];
 
+  additionalColumns = ['regionCode'];
+
   // The 'ids' of the columns to display. Also defines their initial order
   // 'Select' is a special column that displays the checkbox
-  orderedColumns = ['Select', 'Name', 'Identifier', 'Role', 'DateCreated', 'Owner', 'Members'];
+  orderedColumns = ['Select', 'name', 'identifier', 'regionCode', 'role', 'dateCreated', 'owner', 'members'];
 
   // defines the NGXS state that the grid is bound to. The Grid is aware of the OData specific actions in
   // the state, and can drive the API calls through the State actions. e.g. paging, sorting, filtering etc.
@@ -106,9 +112,9 @@ export class TenantIndexComponent implements OnInit {
     // for the grid
     this.store.dispatch(new ClearFilters(TenantEntityState));
     this.store.dispatch(new AddExpands(TenantEntityState, [
-      new Expand('CreatedBy'),
-      new Expand('Owner', '$select=Name'),
-      new Expand('Members', '$top=0;$select=UserId;$count=true')
+      new Expand('createdBy'),
+      new Expand('owner', '$select=name'),
+      new Expand('members', '$top=0;$select=UserId;$count=true')
     ]));
     // Query actually invokes the API request. Page size and page number have defaulted, but can be amended
     // (with SetPageSize and GotoPage actions) - however the Flex grid handles this for you most of the time.
@@ -121,7 +127,7 @@ export class TenantIndexComponent implements OnInit {
   public activateTenant(tenant: Tenant) {
     this.logger.debug('activate tenant', tenant);
     this.store.dispatch([
-      new SetActive(TenantEntityState, tenant.TenantId)
+      new SetActive(TenantEntityState, tenant.tenantId)
     ]);
   }
 
@@ -143,7 +149,7 @@ export class TenantIndexComponent implements OnInit {
     // Any errors will be returned in TenantEntityState.error and TenantEntityState.lastStatusCode
     // The created tenant will be available in TenantEntityState.latest
     this.store.dispatch(
-      new Add(TenantEntityState, { Name: this.newTenantName } as Tenant) // Create a new Tenant
+      new Add(TenantEntityState, { name: this.newTenantName } as Tenant) // Create a new Tenant
     );
   }
 
@@ -167,6 +173,6 @@ export class TenantIndexComponent implements OnInit {
     }
     // We use the store to navigate. This drives the Angular router for us.
     // 
-    this.store.dispatch(new Navigate([tenant.Identifier || tenant.TenantId, route]));
+    this.store.dispatch(new Navigate([tenant.identifier || tenant.tenantId, route]));
   }
 }

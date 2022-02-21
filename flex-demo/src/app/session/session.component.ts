@@ -1,9 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { Login, Logout, SessionState, User, APP_CONFIG, IConfig, TenantEntityState } from '@xbim/flex-webkit';
+import { Login, Logout, SessionState, User, APP_CONFIG, IConfig } from '@xbim/flex-webkit';
 import { Observable, } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Tenant } from '@xbim/flex-api';
 
 @Component({
   selector: 'app-session',

@@ -13,7 +13,8 @@
     View {{(activeTenant$ | async)?.Name}} Assets
   </button>
   <flex-table [stateType]="stateType" [displayedColumns]="orderedColumns" [columnDefinitions]="definedColumns"
-    [comparer]="comparer" (rowSelected)="activateTenant($event)" (rowDeselected)="clearTenant($event)">
+    [additionalColumns]="additionalColumns" [comparer]="comparer" (rowSelected)="activateTenant($event)"
+    (rowDeselected)="clearTenant($event)">
   </flex-table>
 </div>
 

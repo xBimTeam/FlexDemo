@@ -9,11 +9,12 @@ import {
   ViewerStateSelectors, ViewerStyle, SetDefaultViewPoint, ViewStateModel, SetActive, ModelDefinition, ClearViews,
   SetFilter
 } from '@xbim/flex-webkit';
-import { Asset, Tenant, Model } from '@xbim/flex-api';
+import { Asset, Model } from '@xbim/flex-api';
 import { NGXLogger } from 'ngx-logger';
 import { Observable, Subject } from 'rxjs';
 import { skipWhile, take, takeUntil, tap, distinctUntilKeyChanged, distinctUntilChanged } from 'rxjs/operators';
 import { ViewType } from '@xbim/viewer';
+import { Tenant } from '@xbim/flex-identity-api';
 
 @Component({
   selector: 'app-viewer',
@@ -78,7 +79,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.activeTenant$
       .pipe(takeUntil(this.destroy$))
       .subscribe((tenant) => {
-        if (tenant != null && tenant.TenantId != null) {
+        if (tenant != null && tenant.tenantId != null) {
           this.store.dispatch([
             new SetPageSize(AssetEntityState, 50),
             new SetExpands(AssetEntityState, new Expand('Models')),

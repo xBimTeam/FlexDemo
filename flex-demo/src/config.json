@@ -2,12 +2,11 @@
   "clientId": "853519a5-e1b1-4be8-93b3-ac21a4180294",
   "baseUrl": "https://localhost:4202",
   "endpoints": {
-    "identityBaseUrl": "https://id.xbim-dev.net",
-    "hubApiBaseUrl": "https://hub.xbim-dev.net",
-    "flexApiBaseUrl": "https://api.xbim-dev.net",
-    "flexAppBaseUrl": "https://flex.xbim-dev.net",
-    "commsApiBaseUrl": "https://comms-api.xbim-dev.net",
-    "commsAppBaseUrl": "https://comms.xbim-dev.net",
+    "identityBaseUrl": "https://apis.xbim-dev.net/id",
+    "apiBaseUrl": "https://apis.xbim-dev.net",
+    "hubApiBaseUrl": " https://xdev-flexhub-webapp-b7franaenewmy.azurewebsites.net",
+    "flexAppBaseUrl": "https://flexapp.xbim-dev.net",
+    "commsAppBaseUrl": "https://commsapp.xbim-dev.net",
     "publicHomePage": "https://localhost:4202"
   }
 }

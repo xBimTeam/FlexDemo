@@ -29,7 +29,7 @@
     <ul *ngIf="tenantLoaded">
       <ng-container *ngFor="let menu of menuItems">
         <li *ngIf="!menu.type">
-          <a routerLinkActive="active" [routerLink]="[(tenant.Identifier || tenant.TenantId), menu.routeLink]">
+          <a routerLinkActive="active" [routerLink]="[(tenant.identifier || tenant.tenantId), menu.routeLink]">
             <mat-icon>{{menu.icon}}</mat-icon>
             {{menu.name}}
           </a>
