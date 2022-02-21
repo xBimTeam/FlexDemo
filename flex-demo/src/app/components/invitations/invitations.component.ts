@@ -19,26 +19,37 @@ export class InvitationsComponent implements OnInit {
 
 
   definedColumns: GridColumnDefinition[] = [
-    ...DateCreatedColumns,
     {
-      id: 'EmailAddress',
+      id: 'dateCreated',
+      title: 'Date Created',
+      format: 'Date',
+      prefixIcon: 'calendar_today'
+    },
+    {
+      id: 'dateModified',
+      title: 'Date Modified',
+      format: 'Date',
+      prefixIcon: 'calendar_today'
+    },
+    {
+      id: 'emailAddress',
       title: 'Email',
       prefixIcon: 'email',
       isPrimary: true
     },
     {
-      id: 'TenantRole',
+      id: 'tenantRole',
       title: 'Role'
     },
     {
-      id: 'AcceptedBy',
+      id: 'acceptedBy',
       fieldType: 'Reference',
-      field: 'Name'
+      field: 'name'
     }
     // Systems, Type
   ];
 
-  orderedColumns = ['EmailAddress', 'TenantRole', 'DateCreated', 'AcceptedBy'];
+  orderedColumns = ['emailAddress', 'tenantRole', 'dateCreated', 'acceptedBy'];
   public stateType = InvitationEntityState;
   public comparer = new EntityComparer();
 
@@ -46,7 +57,7 @@ export class InvitationsComponent implements OnInit {
   ngOnInit() {
 
     this.store.dispatch(new AddExpands(InvitationEntityState, [
-      new Expand('AcceptedBy', '$select=Name'),
+      new Expand('acceptedBy', '$select=name'),
     ]));
   }
 }

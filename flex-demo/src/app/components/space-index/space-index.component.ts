@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { EntityComparer, AddExpands, Expand } from '@xbim/flex-webkit';
+import { EntityComparer, AddExpands, Expand, LoadDynamicProperties, SetOrderBys, SortOrder } from '@xbim/flex-webkit';
 import { GridColumnDefinition } from '@xbim/grid';
 import { CommonEntityColumns } from '../../common-columns';
 import { SpaceIndexState } from './spaces-state';
@@ -39,8 +39,15 @@ export class SpaceIndexComponent implements OnInit {
 
   ngOnInit() {
 
-    this.store.dispatch(new AddExpands(SpaceIndexState, [
-      new Expand('Components', '$count=true;$select=Name;$top=10'),
-    ]));
+    this.store.dispatch(new LoadDynamicProperties(SpaceIndexState));
+
+    this.store.dispatch(
+      [
+        new SetOrderBys(SpaceIndexState, new SortOrder("LevelName", "desc")),
+        new AddExpands(SpaceIndexState, [
+          new Expand('Components', '$count=true;$select=Name;$top=0'),
+          new Expand('Attributes'),
+        ])
+      ]);
   }
 }

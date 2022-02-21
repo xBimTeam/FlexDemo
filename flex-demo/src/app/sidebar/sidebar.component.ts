@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { TenantEntityState } from '@xbim/flex-webkit';
-import { Tenant } from '@xbim/flex-api';
+import { Tenant } from '@xbim/flex-identity-api';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 
 @Component({

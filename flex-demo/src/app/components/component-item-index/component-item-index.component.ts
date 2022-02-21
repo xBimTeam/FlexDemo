@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { EntityComparer, AddExpands } from '@xbim/flex-webkit';
+import { EntityComparer, AddExpands, LoadDynamicProperties, Expand, SetOrderBys, SortOrder } from '@xbim/flex-webkit';
 import { GridColumnDefinition } from '@xbim/grid';
 import { CommonEntityColumns } from '../../common-columns';
 import { ComponentIndexState } from './component-state';
@@ -42,9 +42,14 @@ export class ComponentItemIndexComponent implements OnInit {
 
   ngOnInit() {
 
-    this.store.dispatch(new AddExpands(ComponentIndexState, [
-      // new Expand('Spaces', "$count=true;$select=Name;$top=10"),
-    ]));
+    this.store.dispatch(new LoadDynamicProperties(ComponentIndexState));
+    this.store.dispatch([
+      new SetOrderBys(ComponentIndexState, new SortOrder('DateCreated', 'desc')),
+      new AddExpands(ComponentIndexState, [
+        // new Expand('Spaces', "$count=true;$select=Name;$top=10"),
+        new Expand('Attributes')
+      ])
+    ]);
   }
 
   // // you can have as many deailed item views as you wish, just provide appropriate keys i.e. detailedItem('B'),

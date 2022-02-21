@@ -4,7 +4,7 @@ import { TeamEntityState } from './team-state';
 import { EntityComparer } from '@xbim/flex-webkit';
 import { GridColumnDefinition } from '@xbim/grid';
 import { NGXLogger } from 'ngx-logger';
-import { DateCreatedColumns } from '../../common-columns';
+import { LowerDateCreatedColumns } from '../../common-columns';
 
 @Component({
   selector: 'app-team',
@@ -17,30 +17,30 @@ export class TeamComponent implements OnInit {
     private logger: NGXLogger) { }
 
   definedColumns: GridColumnDefinition[] = [
-    ...DateCreatedColumns,
+    ...LowerDateCreatedColumns,
     {
-      id: 'UserName',
+      id: 'userName',
       title: 'Name',
       isPrimary: true
     },
     {
-      id: 'UserEmail',
+      id: 'userEmail',
       title: 'Email',
       prefixIcon: 'email'
     },
 
     {
-      id: 'Role',
+      id: 'role',
       prefixIcon: 'policy'
     },
     {
-      id: 'UserId',
+      id: 'userId',
       field: 'UserId'
     }
     // Systems, Type
   ];
 
-  orderedColumns = ['UserName', 'UserEmail', 'Role', 'UserId', 'DateCreated'];
+  orderedColumns = ['userName', 'userEmail', 'role', 'userId', 'dateCreated'];
   public stateType = TeamEntityState;
   public comparer = new EntityComparer();
 
