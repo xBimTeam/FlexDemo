@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { EntityComparer, AddExpands, Expand } from '@xbim/flex-webkit';
+import { Level } from '@xbim/flex-api';
+import { EntityComparer, AddExpands, Expand, SetActive } from '@xbim/flex-webkit';
 import { GridColumnDefinition } from '@xbim/grid';
 import { NGXLogger } from 'ngx-logger';
 import { CommonEntityColumns } from '../../common-columns';
@@ -15,6 +16,8 @@ export class LevelIndexComponent implements OnInit {
 
   constructor(private store: Store,
     private logger: NGXLogger) { }
+
+  public floorplanType = "level"
 
   definedColumns: GridColumnDefinition[] = [
     ...CommonEntityColumns,
@@ -40,5 +43,9 @@ export class LevelIndexComponent implements OnInit {
       new Expand('Model', '$select=SegmentName'),
       new Expand('Spaces', '$count=true;$select=EntityId;$top=0'),
     ]));
+  }
+
+  public activateLevel(level: Level) {
+    this.store.dispatch(new SetActive(LevelIndexState, level.EntityId.toString()));
   }
 }

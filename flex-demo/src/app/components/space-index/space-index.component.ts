@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { EntityComparer, AddExpands, Expand, LoadDynamicProperties, SetOrderBys, SortOrder } from '@xbim/flex-webkit';
+import { Space } from '@xbim/flex-api';
+import { EntityComparer, AddExpands, Expand, LoadDynamicProperties, SetOrderBys, SortOrder, SetActive } from '@xbim/flex-webkit';
 import { GridColumnDefinition } from '@xbim/grid';
 import { CommonEntityColumns } from '../../common-columns';
 import { SpaceIndexState } from './spaces-state';
@@ -14,6 +15,8 @@ import { SpaceIndexState } from './spaces-state';
 export class SpaceIndexComponent implements OnInit {
 
   constructor(private store: Store) { }
+
+  public floorplanType = "space"
 
   definedColumns: GridColumnDefinition[] = [
     ...CommonEntityColumns,
@@ -49,5 +52,9 @@ export class SpaceIndexComponent implements OnInit {
           new Expand('Attributes'),
         ])
       ]);
+  }
+
+  public activateSpace(space: Space) {
+    this.store.dispatch(new SetActive(SpaceIndexState, space.EntityId.toString()));
   }
 }

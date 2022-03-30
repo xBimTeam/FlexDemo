@@ -1,6 +1,8 @@
 <div>
   <h2>Levels</h2>
   <flex-table [stateType]="stateType" [displayedColumns]="orderedColumns" [columnDefinitions]="definedColumns"
-    [comparer]="comparer">
+    [comparer]="comparer" (rowSelected)="activateLevel($event)">
   </flex-table>
+
+  <app-floorplan [typeOfFloorplan]="floorplanType" ></app-floorplan>
 </div>
