@@ -1,7 +1,7 @@
 <div>
   <h2>Spaces</h2>
   <flex-table [stateType]="stateType" [displayedColumns]="orderedColumns" [columnDefinitions]="definedColumns"
-    [comparer]="comparer" (rowSelected)="activateSpace($event)" (rowDblClick)="activateSpace($event)">
+    [comparer]="comparer" (rowSelected)="activateSpace($event)">
   </flex-table>
 
   <app-floorplan [typeOfFloorplan]="floorplanType" ></app-floorplan>
