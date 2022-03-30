@@ -1,0 +1,9 @@
+<mat-card class="mat-elevation-z8">
+    <h3 mat-subheader>Floorplans</h3>
+    <mat-divider style="width: 94%; margin-left: 3%;"></mat-divider>
+    <div style="padding: 15px 10px; font-size: 14px;">You may visualise levels on this box by clicking on the rows of the table.</div>
+
+    <div *ngIf="loadedImage" style="padding: 25px; max-height: 800px; display: flex;">
+        <img #imageElement style="max-height: 100%; max-width: 100%;" src="" alt=""/>            
+    </div>
+</mat-card>

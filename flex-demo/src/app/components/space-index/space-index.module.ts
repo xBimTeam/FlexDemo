@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
 import { SharedModule } from '../../shared/shared.module';
+import { FloorplanModule } from '../floorplan/floorplan.module';
 import { SpaceIndexComponent } from './space-index.component';
 import { SpaceIndexState } from './spaces-state';
 
@@ -19,7 +20,8 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         NgxsModule.forFeature([SpaceIndexState]),
-        SharedModule
+        SharedModule,
+        FloorplanModule
     ],
     declarations: [SpaceIndexComponent]
 })
